@@ -1,3 +1,15 @@
+type Project = {
+  title: string;
+  description: string;
+  image: string;
+  demoUrl?: string;
+  githubUrl?: string;
+  isPublic?: boolean;
+  tags?: string[];
+  category?: string; // backward compatibility (will be merged into categories)
+  categories?: string[];
+  year?: number;
+};
 import { useMemo, useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
@@ -6,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import projects from "../projects.json";
+
 
 const container = {
   hidden: { opacity: 0 },
@@ -70,18 +83,6 @@ categoryLabelEntries.sort((a,b) => a[1].localeCompare(b[1]));
 const CATEGORY_LABELS: Record<string,string> = { all: 'All Categories' };
 for (const [k,v] of categoryLabelEntries) CATEGORY_LABELS[k] = v;
 
-type Project = {
-  title: string;
-  description: string;
-  image: string;
-  demoUrl?: string;
-  githubUrl?: string;
-  isPublic?: boolean;
-  tags?: string[];
-  category?: string; // backward compatibility (will be merged into categories)
-  categories?: string[];
-};
-
 export default function ProjectsShowcase() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("all");
@@ -105,7 +106,20 @@ export default function ProjectsShowcase() {
   // Reset visible count when filters change
   const isAllCategory = category === 'all' || !CATEGORY_LABELS[category];
   const activeCount = filtered.length;
-  const displayedProjects = isAllCategory ? filtered.slice(0, visibleCount) : filtered;
+  // For timeline: group by year descending (2025, 2024, 2023...)
+  let displayedProjects: Project[] = isAllCategory ? filtered.slice(0, visibleCount) : filtered;
+  let timelineGroups: { year: number, projects: Project[] }[] = [];
+  if (isAllCategory) {
+    const byYear: Record<number, Project[]> = {};
+    for (const p of displayedProjects) {
+      const y = p.year || 2023;
+      if (!byYear[y]) byYear[y] = [];
+      byYear[y].push(p);
+    }
+    timelineGroups = Object.entries(byYear)
+      .map(([y, arr]) => ({ year: Number(y), projects: arr }))
+      .sort((a, b) => b.year - a.year);
+  }
 
   useEffect(() => {
     // Reset when category or query changes
@@ -184,86 +198,266 @@ export default function ProjectsShowcase() {
           </div>
         </header>
 
-        <motion.ul
-          // Stable key prevents full remount when increasing visibleCount
-          key={category + '|' + query}
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
-        >
-          {displayedProjects.map((p) => (
-            <motion.li
-              key={p.title}
-              variants={item}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              <Card
-                className="interactive-card interactive-card-transition overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm hover:shadow-xl"
-                onPointerMove={(e) => {
-                  const target = e.currentTarget as HTMLElement;
-                  const rect = target.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  target.style.setProperty('--mx', x + 'px');
-                  target.style.setProperty('--my', y + 'px');
-                }}
-              >
-                <div className="fx-overlay">
-                  <div className="fx-gradient" />
-                  <div className="fx-clouds">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
+        {isAllCategory ? (
+          <div>
+            {timelineGroups.map((group) => (
+              <div key={group.year} className="relative w-full mb-16">
+                {/* Responsive: show year as heading above cards on small screens, timeline on md+ */}
+                <div className="block md:hidden mb-6">
+                  <h3 className="text-3xl font-extrabold text-primary text-center select-none" aria-label={`Year ${group.year}`}>{group.year}</h3>
                 </div>
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img
-                    src={p.image}
-                    alt={`${p.title} preview by Abdul Hajees`}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
-                </div>
-                <div className="p-5 lift relative z-[1]">
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
+                <div className="hidden md:flex w-full">
+                  <div className="flex flex-col items-center mr-8" style={{ minWidth: 72 }}>
+                    <span
+                      className="text-5xl font-extrabold text-primary select-none mb-2"
+                      style={{ lineHeight: 1.1 }}
+                      aria-label={`Year ${group.year}`}
+                    >
+                      {group.year}
+                    </span>
+                    <div className="flex-1 w-1 bg-primary/30 rounded-full" style={{ minHeight: '100%' }} />
                   </div>
-                  <p className="text-sm text-muted-foreground line-clamp-3">{p.description}</p>
-                  {p.tags && (
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {p.tags.map((t: string) => (
-                        <Badge key={t} variant="secondary">{t}</Badge>
+                  <div className="flex-1">
+                    <motion.ul
+                      variants={container}
+                      initial="hidden"
+                      animate="show"
+                      className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
+                    >
+                      {group.projects.map((p) => (
+                        <motion.li
+                          key={p.title}
+                          variants={item}
+                          initial="hidden"
+                          whileInView="show"
+                          viewport={{ once: true, amount: 0.2 }}
+                        >
+                          <Card
+                            className="interactive-card interactive-card-transition overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm hover:shadow-xl"
+                            onPointerMove={(e) => {
+                              const target = e.currentTarget as HTMLElement;
+                              const rect = target.getBoundingClientRect();
+                              const x = e.clientX - rect.left;
+                              const y = e.clientY - rect.top;
+                              target.style.setProperty('--mx', x + 'px');
+                              target.style.setProperty('--my', y + 'px');
+                            }}
+                          >
+                            <div className="fx-overlay">
+                              <div className="fx-gradient" />
+                              <div className="fx-clouds">
+                                <span />
+                                <span />
+                                <span />
+                              </div>
+                            </div>
+                            <div className="relative aspect-[16/10] overflow-hidden">
+                              <img
+                                src={p.image}
+                                alt={`${p.title} preview by Abdul Hajees`}
+                                loading="lazy"
+                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
+                            </div>
+                            <div className="p-5 lift relative z-[1]">
+                              <div className="flex items-start justify-between gap-2">
+                                <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
+                              </div>
+                              <p className="text-sm text-muted-foreground line-clamp-3">{p.description}</p>
+                              {p.tags && (
+                                <div className="mt-3 flex flex-wrap gap-2">
+                                  {p.tags.map((t: string) => (
+                                    <Badge key={t} variant="secondary">{t}</Badge>
+                                  ))}
+                                </div>
+                              )}
+                              <div className="mt-4 flex gap-2">
+                                {p.demoUrl && (
+                                  <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+                                    <Button variant="secondary" className="hover-scale">View Project</Button>
+                                  </a>
+                                )}
+                                {p.isPublic && p.githubUrl ? (
+                                  <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+                                    <Button variant="outline" className="hover-scale">GitHub</Button>
+                                  </a>
+                                ) : (
+                                  <Button variant="outline" className="hover-scale" disabled>Private</Button>
+                                )}
+                              </div>
+                            </div>
+                          </Card>
+                        </motion.li>
                       ))}
-                    </div>
-                  )}
-                  <div className="mt-4 flex gap-2">
-                    {p.demoUrl && (
-                      <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
-                        <Button variant="secondary" className="hover-scale">View Project</Button>
-                      </a>
-                    )}
-                    {p.isPublic && p.githubUrl ? (
-                      <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
-                        <Button variant="outline" className="hover-scale">GitHub</Button>
-                      </a>
-                    ) : (
-                      <Button variant="outline" className="hover-scale" disabled>Private</Button>
-                    )}
+                    </motion.ul>
                   </div>
                 </div>
-              </Card>
-            </motion.li>
-          ))}
-          {filtered.length === 0 && (
-            <div className="col-span-full text-sm text-muted-foreground p-8 border border-dashed rounded-md text-center">
-              {RAW_PROJECTS.length === 0 ? 'No project data found (JSON failed to load).' : 'No projects match your search or filter.'}
-            </div>
-          )}
-        </motion.ul>
+                {/* On small screens, show cards below the year heading */}
+                <div className="md:hidden">
+                  <motion.ul
+                    variants={container}
+                    initial="hidden"
+                    animate="show"
+                    className="grid grid-cols-1 gap-6"
+                  >
+                    {group.projects.map((p) => (
+                      <motion.li
+                        key={p.title}
+                        variants={item}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, amount: 0.2 }}
+                      >
+                        <Card
+                          className="interactive-card interactive-card-transition overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm hover:shadow-xl"
+                          onPointerMove={(e) => {
+                            const target = e.currentTarget as HTMLElement;
+                            const rect = target.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            target.style.setProperty('--mx', x + 'px');
+                            target.style.setProperty('--my', y + 'px');
+                          }}
+                        >
+                          <div className="fx-overlay">
+                            <div className="fx-gradient" />
+                            <div className="fx-clouds">
+                              <span />
+                              <span />
+                              <span />
+                            </div>
+                          </div>
+                          <div className="relative aspect-[16/10] overflow-hidden">
+                            <img
+                              src={p.image}
+                              alt={`${p.title} preview by Abdul Hajees`}
+                              loading="lazy"
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
+                          </div>
+                          <div className="p-5 lift relative z-[1]">
+                            <div className="flex items-start justify-between gap-2">
+                              <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
+                            </div>
+                            <p className="text-sm text-muted-foreground line-clamp-3">{p.description}</p>
+                            {p.tags && (
+                              <div className="mt-3 flex flex-wrap gap-2">
+                                {p.tags.map((t: string) => (
+                                  <Badge key={t} variant="secondary">{t}</Badge>
+                                ))}
+                              </div>
+                            )}
+                            <div className="mt-4 flex gap-2">
+                              {p.demoUrl && (
+                                <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+                                  <Button variant="secondary" className="hover-scale">View Project</Button>
+                                </a>
+                              )}
+                              {p.isPublic && p.githubUrl ? (
+                                <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+                                  <Button variant="outline" className="hover-scale">GitHub</Button>
+                                </a>
+                              ) : (
+                                <Button variant="outline" className="hover-scale" disabled>Private</Button>
+                              )}
+                            </div>
+                          </div>
+                        </Card>
+                      </motion.li>
+                    ))}
+                  </motion.ul>
+                </div>
+              </div>
+            ))}
+            {filtered.length === 0 && (
+              <div className="col-span-full text-sm text-muted-foreground p-8 border border-dashed rounded-md text-center">
+                {RAW_PROJECTS.length === 0 ? 'No project data found (JSON failed to load).' : 'No projects match your search or filter.'}
+              </div>
+            )}
+          </div>
+        ) : (
+          <motion.ul
+            key={category + '|' + query}
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
+          >
+            {displayedProjects.map((p) => (
+              <motion.li
+                key={p.title}
+                variants={item}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                <Card
+                  className="interactive-card interactive-card-transition overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm hover:shadow-xl"
+                  onPointerMove={(e) => {
+                    const target = e.currentTarget as HTMLElement;
+                    const rect = target.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    target.style.setProperty('--mx', x + 'px');
+                    target.style.setProperty('--my', y + 'px');
+                  }}
+                >
+                  <div className="fx-overlay">
+                    <div className="fx-gradient" />
+                    <div className="fx-clouds">
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                  </div>
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={p.image}
+                      alt={`${p.title} preview by Abdul Hajees`}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
+                  </div>
+                  <div className="p-5 lift relative z-[1]">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground line-clamp-3">{p.description}</p>
+                    {p.tags && (
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {p.tags.map((t: string) => (
+                          <Badge key={t} variant="secondary">{t}</Badge>
+                        ))}
+                      </div>
+                    )}
+                    <div className="mt-4 flex gap-2">
+                      {p.demoUrl && (
+                        <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+                          <Button variant="secondary" className="hover-scale">View Project</Button>
+                        </a>
+                      )}
+                      {p.isPublic && p.githubUrl ? (
+                        <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+                          <Button variant="outline" className="hover-scale">GitHub</Button>
+                        </a>
+                      ) : (
+                        <Button variant="outline" className="hover-scale" disabled>Private</Button>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+              </motion.li>
+            ))}
+            {filtered.length === 0 && (
+              <div className="col-span-full text-sm text-muted-foreground p-8 border border-dashed rounded-md text-center">
+                {RAW_PROJECTS.length === 0 ? 'No project data found (JSON failed to load).' : 'No projects match your search or filter.'}
+              </div>
+            )}
+          </motion.ul>
+        )}
         {isAllCategory && displayedProjects.length < activeCount && (
           <>
             <div ref={sentinelRef} className="h-2 w-full" aria-hidden="true" />

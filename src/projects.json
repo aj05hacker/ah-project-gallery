@@ -8,7 +8,8 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["web-app", "personal", "management"],
-    "tags": ["gallery", "showcase", "web"]
+    "tags": ["gallery", "showcase", "web"],
+    "year": 2025
   },
   {
     "title": "Sigmahub - Social Platform",
@@ -17,7 +18,8 @@
     "demoUrl": "https://sigmahub.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["business", "prototype", "web-app"]
+    "categories": ["business", "prototype", "web-app"],
+    "year": 2025
   },
   {
     "title": "Drive",
@@ -26,7 +28,8 @@
     "demoUrl": "https://drive.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["tools", "utility"]
+    "categories": ["tools", "utility"],
+    "year": 2025
   },
   {
     "title": "Sigma HuB – Careers Portal",
@@ -35,7 +38,8 @@
     "demoUrl": "https://monitpro.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["business", "prototype"]
+    "categories": ["business", "prototype"],
+    "year": 2025
   },
 
   {
@@ -45,7 +49,8 @@
     "demoUrl": "https://course-html.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["education", "learning","ai"]
+    "categories": ["education", "learning","ai"],
+    "year": 2025
   },
   {
     "title": "EduHub- Prompt Engineering Course",
@@ -54,7 +59,8 @@
     "demoUrl": "https://course-prompt-engineering.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["education", "learning","ai"]
+    "categories": ["education", "learning","ai"],
+    "year": 2024
   },
   {
     "title": "AH Assistant AI",
@@ -63,7 +69,8 @@
     "demoUrl": "https://about.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["portfolio", "personal"]
+    "categories": ["portfolio", "personal"],
+    "year": 2024
   },
   {
     "title": "AH Chatbot",
@@ -72,7 +79,8 @@
     "demoUrl": "https://ai.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["ai", "chatbot", "tools"]
+    "categories": ["ai", "chatbot", "tools"],
+    "year": 2024
   },
   {
     "title": "AH Trackr - Inventory Management System",
@@ -81,7 +89,8 @@
     "demoUrl": "https://ahtrackr.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["tools", "utility", "ai", "business"]
+    "categories": ["tools", "utility", "ai", "business"],
+    "year": 2024
   },
   {
     "title": "Search Hub",
@@ -90,7 +99,8 @@
     "demoUrl": "https://search.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["search", "tools", "utility"]
+    "categories": ["search", "tools", "utility"],
+    "year": 2024
   },
   {
     "title": "AH Search Hub",
@@ -99,7 +109,8 @@
     "demoUrl": "https://ahsearch-hub.vercel.app",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["web-app", "prototype","tools"]
+    "categories": ["web-app", "prototype","tools"],
+    "year": 2024
   },
   {
     "title": "Student ERP System ",
@@ -109,7 +120,8 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["business", "management", "tools"],
-    "isprotected": true
+    "isprotected": true,
+    "year": 2024
   },
   {
     "title": "Abdul Hajees Portfolio",
@@ -118,7 +130,8 @@
     "demoUrl": "https://www.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["tools", "utility"]
+    "categories": ["tools", "utility"],
+    "year": 2023
   },
   {
     "title": "Askit AI",
@@ -127,7 +140,8 @@
     "demoUrl": "https://askit.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["ai", "chatbot", "tools"]
+    "categories": ["ai", "chatbot", "tools"],
+    "year": 2023
   },
   {
     "title": "AskIT ERP System - Student Info Module",
@@ -136,7 +150,8 @@
     "demoUrl": "https://erp2.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["business", "management", "tools"]
+    "categories": ["business", "management", "tools"],
+    "year": 2023
   },
   {
     "title": "AskIT ERP System - Dashboard module",
@@ -145,7 +160,8 @@
     "demoUrl": "https://erp.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["business", "management", "tools", "ai"]
+    "categories": ["business", "management", "tools", "ai"],
+    "year": 2023
   },
   {
     "title": "AHExpenses",
@@ -154,7 +170,8 @@
     "demoUrl": "https://money.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["tools", "utility"]
+    "categories": ["tools", "utility"],
+    "year": 2023
   },
   {
     "title": "AH Webcrafts",
@@ -163,7 +180,8 @@
     "demoUrl": "https://ahwebcrafts.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["tools", "utility"]
+    "categories": ["tools", "utility"],
+    "year": 2023
   },
   {
     "title": "Landing page for EduTech Company",
@@ -172,7 +190,8 @@
     "demoUrl": "https://learntechzo-17fs.vercel.app",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["web-app", "prototype"]
+    "categories": ["web-app", "prototype"],
+    "year": 2023
   },
   {
     "title": "Login Page 2",
@@ -181,7 +200,8 @@
     "demoUrl": "https://login2-ebon.vercel.app",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["web-app", "prototype"]
+    "categories": ["web-app", "prototype"],
+    "year": 2023
   },
 
   {
@@ -191,7 +211,8 @@
     "demoUrl": "https://greenhouse-login.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["tools", "utility"]
+    "categories": ["tools", "utility"],
+    "year": 2023
   },
   {
     "title": "Askit AI chat prototype",
@@ -200,7 +221,8 @@
     "demoUrl": "https://askitai.vercel.app",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["ai", "prototype"]
+    "categories": ["ai", "prototype"],
+    "year": 2023
   },
   {
     "title": "Food Fusion",
@@ -209,7 +231,8 @@
     "demoUrl": "https://food-fusion-donate.vercel.app",
     "githubUrl": "",
     "isPublic": false,
-    "categories": ["web-app", "prototype"]
+    "categories": ["web-app", "prototype"],
+    "year": 2023
   },
   {
     "title": "AH Bot",
@@ -218,7 +241,8 @@
     "demoUrl": "https://ahbot.vercel.app",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["ai", "chatbot", "tools"]
+    "categories": ["ai", "chatbot", "tools"],
+    "year": 2023
   },
   {
     "title": "AH Assistant",
@@ -227,7 +251,8 @@
     "demoUrl": "https://ah-assistant.vercel.app",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["web-app", "prototype"]
+    "categories": ["web-app", "prototype"],
+    "year": 2023
   },
   {
     "title": "Edu",
@@ -236,7 +261,8 @@
     "demoUrl": "https://edu.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["education", "learning"]
+    "categories": ["education", "learning"],
+    "year": 2023
   },
   {
     "title": "Sigma Search",
@@ -245,7 +271,8 @@
     "demoUrl": "https://sigma-search.vercel.app",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["search", "tools", "utility"]
+    "categories": ["search", "tools", "utility"],
+    "year": 2023
   },
   {
     "title": "Time and Thoughts",
@@ -254,7 +281,8 @@
     "demoUrl": "https://blogs.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["portfolio", "personal"]
+    "categories": ["portfolio", "personal"],
+    "year": 2023
   },
   {
     "title": "Custom 404 Page",
@@ -263,6 +291,7 @@
     "demoUrl": "https://404.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["tools", "utility"]
+    "categories": ["tools", "utility"],
+    "year": 2023
   }
 ]
