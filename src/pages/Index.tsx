@@ -8,7 +8,7 @@ const Index = () => {
   return (
     <main>
       <Helmet>
-        <title>Abdul Hajees — Project Gallery</title>
+  <title>Abdul Hajees · Project Gallery</title>
         <meta
           name="description"
           content="Step into Abdul Hajees' Project Gallery - a curated showcase of web applications, design experiments, and AI workflows displayed in an interactive exhibition space."
@@ -22,9 +22,12 @@ const Index = () => {
           <div>
             <p className="text-sm uppercase tracking-widest text-muted-foreground">PROJECT GALLERY</p>
             <h1 className="mt-2 text-4xl sm:text-5xl font-bold leading-tight">Abdul Hajees</h1>
-            <p className="mt-2 text-lg text-muted-foreground">Curator & Creator</p>
+            <p className="mt-4 text-xl sm:text-2xl font-semibold tracking-tight bg-gradient-to-r from-fuchsia-500 via-pink-500 to-cyan-400 text-transparent bg-clip-text">
+              Professional Enough to Impress, Fun Enough to Stay
+            </p>
+            <p className="mt-3 text-lg text-muted-foreground">Curator & Creator</p>
             <p className="mt-4 max-w-prose text-muted-foreground">
-              <strong>Welcome to my digital gallery.</strong> I'm Abdul Hajees, a B.Tech IT graduate from Trichy who curates and creates digital experiences. This exhibition space showcases my ongoing experiments—from polished web applications to playful AI workflows—each piece thoughtfully displayed for your exploration.
+              <strong>Welcome to my digital gallery.</strong> I'm Abdul Hajees, a B.Tech IT graduate from Trichy who loves shaping friendly, curious digital experiences. This space holds my living collection of experiments: polished web apps, whimsical interface studies, and playful AI builds. Every piece is laid out so you can wander, tap, and explore at your own rhythm.
             </p>
             <div className="mt-6 flex gap-3">
               <a href="#projects"><Button variant="default">Browse Gallery</Button></a>
@@ -36,11 +39,11 @@ const Index = () => {
 
           <article className="text-sm leading-7 text-muted-foreground">
             <p>
-              <strong>Gallery Overview.</strong> Each exhibition piece in this digital space tells a story—whether it's a production-ready web application, an experimental interface study, or an AI workflow prototype. Browse at your own pace, click through live demos, peek behind the scenes at source code, and discover the creative process behind each build.
+              <strong>Gallery Overview.</strong> Each piece here tells a tiny story: production ready web apps, exploratory interface sketches, AI workflow prototypes, and little creative detours. Stroll through, open live demos, peek at source code, and enjoy the making-of energy behind every build.
             </p>
             <p className="mt-4">
-              <strong>What's on Display.</strong> React • TypeScript • Next.js • Tailwind & shadcn‑ui • Node & APIs • UI/UX Design Systems • AI tooling & workflow automation • Creative coding experiments.<br /><br />
-              <strong>Gallery Guest Book.</strong> Enjoyed exploring? Found something that sparked an idea? Let's connect on <a href="https://www.linkedin.com/in/abdulhajees" target="_blank" rel="noreferrer" className="underline underline-offset-2">LinkedIn</a> or drop me a line at <a href="mailto:me@abdulhajees.in" className="underline underline-offset-2">me@abdulhajees.in</a>.
+              <strong>What's on Display.</strong> React • TypeScript • Next.js • Tailwind & shadcn‑ui • Node & APIs • Design systems • AI tooling & workflow automation • Creative coding experiments and cheerful prototypes.<br /><br />
+              <strong>Guest Book.</strong> Did something spark an idea or a smile? Say hi on <a href="https://www.linkedin.com/in/abdulhajees" target="_blank" rel="noreferrer" className="underline underline-offset-2">LinkedIn</a> or drop a note at <a href="mailto:me@abdulhajees.in" className="underline underline-offset-2">me@abdulhajees.in</a>.
             </p>
             <div className="mt-8 pt-6 border-t" aria-label="Social links">
               <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">Connect</p>

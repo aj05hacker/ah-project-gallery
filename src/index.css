@@ -59,6 +59,8 @@ All colors MUST be HSL.
     /* Spotlight (pointer-follow) */
     --spot-x: 0px;
     --spot-y: 0px;
+  --gmx: 50vw; /* global mouse x */
+  --gmy: 50vh; /* global mouse y */
 
   }
 
@@ -98,6 +100,40 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Global ambient multi-color light */
+  .global-ambient {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    opacity: .55; /* overall subtle presence */
+  }
+  .global-ambient::before,
+  .global-ambient::after {
+    content: "";
+    position: absolute;
+    inset: -6%;
+    background:
+      radial-gradient(circle at var(--gmx) var(--gmy), rgba(255,0,200,0.16) 0%, rgba(255,0,200,0.05) 8%, rgba(255,0,180,0) 18%),
+      radial-gradient(circle at calc(var(--gmx) + 18vw) calc(var(--gmy) + 6vh), rgba(0,180,255,0.10) 0%, rgba(0,180,255,0.04) 10%, rgba(0,180,255,0) 22%),
+      radial-gradient(circle at calc(var(--gmx) - 18vw) calc(var(--gmy) + 12vh), rgba(140,0,255,0.12) 0%, rgba(140,0,255,0.04) 12%, rgba(140,0,255,0) 24%);
+    filter: blur(55px) saturate(110%);
+    transition: filter 350ms ease, opacity 350ms ease;
+    mix-blend-mode: overlay; /* softer than plus-lighter */
+  }
+  .global-ambient::after {
+    animation: ambientPulse 18s ease-in-out infinite;
+    opacity: .85;
+  }
+  @keyframes ambientPulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .global-ambient::after { animation: none; }
   }
 }
 
@@ -139,4 +175,69 @@ All colors MUST be HSL.
     transform-origin: bottom left;
     transform: scaleX(1);
   }
+
+  /* Interactive project card effects */
+  .interactive-card {
+    --mx: 50%;
+    --my: 50%;
+    position: relative;
+    isolation: isolate; /* keep blending local */
+  }
+  .interactive-card .fx-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 500ms ease;
+    mix-blend-mode: plus-lighter;
+  }
+  .interactive-card:hover .fx-overlay { opacity: 1; }
+  .interactive-card .fx-gradient {
+    position: absolute;
+    inset: -1px;
+    background:
+      radial-gradient(circle at var(--mx) var(--my), rgba(255,0,200,0.35), rgba(255,0,200,0) 55%),
+      radial-gradient(circle at calc(var(--mx) + 140px) calc(var(--my) + 40px), rgba(0,180,255,0.28), rgba(0,180,255,0) 60%),
+      radial-gradient(circle at calc(var(--mx) - 120px) calc(var(--my) + 100px), rgba(140,0,255,0.30), rgba(140,0,255,0) 60%);
+    filter: saturate(110%);
+    mask: radial-gradient(circle at var(--mx) var(--my), #fff 0%, transparent 70%);
+  }
+  .interactive-card .fx-clouds {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    filter: blur(28px) brightness(1.05);
+    opacity: 0.85;
+    mix-blend-mode: screen;
+  }
+  .interactive-card .fx-clouds span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,0,200,0.55), rgba(255,0,200,0) 70%);
+    transform: translate(-50%, -50%) scale(var(--s,1));
+    animation: drift 12s linear infinite;
+  }
+  .interactive-card .fx-clouds span:nth-child(2) {
+    background: radial-gradient(circle at 70% 40%, rgba(0,180,255,0.45), rgba(0,180,255,0) 75%);
+    animation-duration: 15s;
+    animation-direction: reverse;
+    --s: 1.15;
+  }
+  .interactive-card .fx-clouds span:nth-child(3) {
+    background: radial-gradient(circle at 50% 60%, rgba(150,60,255,0.40), rgba(150,60,255,0) 70%);
+    animation-duration: 18s;
+    --s: 0.9;
+  }
+  @keyframes drift {
+    0% { transform: translate(-55%, -50%) scale(var(--s,1)); }
+    33% { transform: translate(-45%, -52%) scale(calc(var(--s,1) * 1.05)); }
+    66% { transform: translate(-50%, -48%) scale(calc(var(--s,1) * 0.95)); }
+    100% { transform: translate(-55%, -50%) scale(var(--s,1)); }
+  }
+  .interactive-card:hover { box-shadow: 0 4px 20px -4px rgba(255,0,200,0.25), 0 8px 40px -8px rgba(0,180,255,0.18); }
+  .interactive-card-transition { transition: transform 450ms cubic-bezier(.22,1,.36,1), box-shadow 450ms ease; }
+  .interactive-card:hover .lift { transform: translateY(-4px); }
 }

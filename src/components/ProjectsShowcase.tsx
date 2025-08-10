@@ -119,7 +119,25 @@ export default function ProjectsShowcase() {
         >
           {filtered.map((p) => (
             <motion.li key={p.title} variants={item}>
-              <Card className="overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm transition-shadow hover:shadow-xl hover:shadow-[var(--shadow-elev)]">
+              <Card
+                className="interactive-card interactive-card-transition overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm hover:shadow-xl"
+                onPointerMove={(e) => {
+                  const target = e.currentTarget as HTMLElement;
+                  const rect = target.getBoundingClientRect();
+                  const x = e.clientX - rect.left;
+                  const y = e.clientY - rect.top;
+                  target.style.setProperty('--mx', x + 'px');
+                  target.style.setProperty('--my', y + 'px');
+                }}
+              >
+                <div className="fx-overlay">
+                  <div className="fx-gradient" />
+                  <div className="fx-clouds">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                </div>
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <img
                     src={p.image}
@@ -129,7 +147,7 @@ export default function ProjectsShowcase() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
                 </div>
-                <div className="p-5">
+                <div className="p-5 lift relative z-[1]">
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
                   </div>

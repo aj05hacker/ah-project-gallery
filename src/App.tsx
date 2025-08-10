@@ -15,6 +15,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+  <div className="global-ambient" aria-hidden="true" />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
