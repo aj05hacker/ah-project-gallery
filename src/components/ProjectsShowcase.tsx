@@ -1,7 +1,10 @@
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 import projects from "../projects.json";
 
 const container = {
@@ -17,28 +20,104 @@ const item = {
   show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
 };
 
+const CATEGORY_LABELS: Record<string, string> = {
+  all: "All Categories",
+  portfolio: "Portfolios",
+  "landing": "Landing Pages",
+  saas: "SaaS Apps",
+  prototypes: "Prototypes",
+  ai: "AI Integrated",
+  services: "Service Tools"
+};
+
+type Project = {
+  title: string;
+  description: string;
+  image: string;
+  demoUrl?: string;
+  githubUrl?: string;
+  isPublic?: boolean;
+  tags?: string[];
+  category?: string; // backward compatibility (will be merged into categories)
+  categories?: string[];
+};
+
 export default function ProjectsShowcase() {
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<string>("all");
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return (projects as Project[]).filter(p => {
+      const cats = (p.categories && p.categories.length ? p.categories : [p.category]).filter(Boolean).map(c => c!.toLowerCase());
+      const catOk = category === "all" || cats.includes(category);
+      const text = (p.title + " " + p.description + " " + (p.tags || []).join(" ") + " " + cats.join(" ")).toLowerCase();
+      const qOk = !q || text.includes(q);
+      return catOk && qOk;
+    });
+  }, [query, category]);
+
+  const activeCount = filtered.length;
+
   return (
     <section id="projects" aria-label="Projects" className="py-16 sm:py-24">
       <div className="container">
-        <header className="mb-10 sm:mb-14">
+        <header className="mb-8 sm:mb-10">
           <p className="text-sm uppercase tracking-widest text-muted-foreground">Featured Work</p>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-bold leading-tight">
-            What I’ve Built
-          </h2>
-          <p className="mt-3 max-w-2xl text-muted-foreground">
-            A curated selection of projects with smooth motion, depth, and delightful micro‑interactions.
-          </p>
+          <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-bold leading-tight">What I’ve Built</h2>
+              <p className="mt-3 max-w-2xl text-muted-foreground">
+                A curated selection of projects with smooth motion, depth, and delightful micro‑interactions.
+              </p>
+            </div>
+            <div className="w-full sm:w-80 flex flex-col gap-2">
+              <Input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search projects..."
+                aria-label="Search projects"
+              />
+              <Select value={category} onValueChange={setCategory}>
+                <SelectTrigger aria-label="Filter by category">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(CATEGORY_LABELS).map(([key,label]) => (
+                    <SelectItem key={key} value={key}>{label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {Object.entries(CATEGORY_LABELS).map(([key,label]) => {
+              const isActive = category === key;
+              return (
+                <Button
+                  key={key}
+                  size="sm"
+                  variant={isActive ? "default" : "secondary"}
+                  onClick={() => setCategory(key)}
+                  className="rounded-full px-4"
+                >
+                  {label}
+                </Button>
+              );
+            })}
+            <div className="ml-auto text-xs text-muted-foreground self-center">{activeCount} shown</div>
+          </div>
         </header>
 
         <motion.ul
+          key={category + query}
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
           className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
         >
-          {projects.map((p) => (
+          {filtered.map((p) => (
             <motion.li key={p.title} variants={item}>
               <Card className="overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm transition-shadow hover:shadow-xl hover:shadow-[var(--shadow-elev)]">
                 <div className="relative aspect-[16/10] overflow-hidden">
@@ -51,7 +130,9 @@ export default function ProjectsShowcase() {
                   <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
                 </div>
                 <div className="p-5">
-                  <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
+                  </div>
                   <p className="text-sm text-muted-foreground line-clamp-3">{p.description}</p>
                   {p.tags && (
                     <div className="mt-3 flex flex-wrap gap-2">
@@ -78,6 +159,11 @@ export default function ProjectsShowcase() {
               </Card>
             </motion.li>
           ))}
+          {filtered.length === 0 && (
+            <div className="col-span-full text-sm text-muted-foreground p-8 border border-dashed rounded-md text-center">
+              No projects match your search.
+            </div>
+          )}
         </motion.ul>
       </div>
     </section>

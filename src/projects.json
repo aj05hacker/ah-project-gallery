@@ -5,7 +5,8 @@
     "image": "https://www.abdulhajees.in/Resources/project_3.jpg",
     "demoUrl": "https://blogs.abdulhajees.in/",
     "githubUrl": "https://github.com/aj05hacker/time-and-thought",
-    "isPublic": true
+    "isPublic": true,
+    "categories": ["portfolio", "services"]
   },
   {
     "title": "AH ChatBot",
@@ -14,7 +15,8 @@
     "demoUrl": "https://ahchatbot.abdulhajees.in/",
     "githubUrl": "https://github.com/aj05hacker/ah-chatbot",
     "isPublic": true,
-    "tags": ["Chatbot", "AI", "Gemini API"]
+    "tags": ["Chatbot", "AI", "Gemini API"],
+    "categories": ["ai", "portfolio", "prototypes"]
   },
   {
     "title": "Portfolio Yellow",
@@ -22,6 +24,7 @@
     "image": "/screenshots/portfolio-yellow.png",
     "demoUrl": "https://portfolio.abdulhajees.in/",
     "githubUrl": "",
-    "isPublic": false
+    "isPublic": false,
+    "categories": ["portfolio", "landing"]
   }
 ]
