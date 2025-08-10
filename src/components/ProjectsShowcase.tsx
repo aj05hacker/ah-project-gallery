@@ -15,7 +15,6 @@ import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Github } from "lucide-react";
 import projects from "../projects.json";
@@ -171,23 +170,13 @@ export default function ProjectsShowcase() {
                 A curated selection of projects with smooth motion, depth, and delightful micro‑interactions.
               </p>
             </div>
-            <div className="w-full sm:w-80 flex flex-col gap-2">
+            <div className="w-full sm:w-80">
               <Input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search projects..."
                 aria-label="Search projects"
               />
-              <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger aria-label="Filter by category">
-                  <SelectValue placeholder="Category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(CATEGORY_LABELS).map(([key,label]) => (
-                    <SelectItem key={key} value={key}>{label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             </div>
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
