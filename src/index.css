@@ -241,3 +241,43 @@ All colors MUST be HSL.
   .interactive-card-transition { transition: transform 450ms cubic-bezier(.22,1,.36,1), box-shadow 450ms ease; }
   .interactive-card:hover .lift { transform: translateY(-4px); }
 }
+
+/* Hide scrollbars globally while maintaining scroll functionality */
+/* For Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Ensure html and body don't show scrollbars */
+html, body {
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Hide scrollbars for specific elements that might have overflow */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Removed custom cursor styles to revert to default cursor */

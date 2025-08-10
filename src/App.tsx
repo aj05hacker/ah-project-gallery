@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -15,7 +14,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-  <div className="global-ambient" aria-hidden="true" />
+        <div className="global-ambient" aria-hidden="true" />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
