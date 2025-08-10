@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,15 +20,55 @@ const item = {
   show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const CATEGORY_LABELS: Record<string, string> = {
-  all: "All Categories",
-  portfolio: "Portfolios",
-  "landing": "Landing Pages",
-  saas: "SaaS Apps",
-  prototypes: "Prototypes",
-  ai: "AI Integrated",
-  services: "Service Tools"
+// Category removal + remap rules
+const CATEGORY_REMOVALS = new Set([
+  'search','tools','utility','web-app','web app','learning','chatbot','personal'
+]);
+const CATEGORY_REMAP: Record<string,string> = {
+  search: 'ai',
+  tools: 'prototype',
+  utility: 'prototype',
+  'web-app': 'prototype',
+  'web app': 'prototype',
+  learning: 'education',
+  chatbot: 'ai',
+  personal: 'portfolio'
 };
+
+const RAW_PROJECTS: Project[] = (Array.isArray(projects) ? (projects as Project[]) : []).map(p => {
+  const original = (p.categories && p.categories.length ? p.categories : [p.category]).filter(Boolean) as string[];
+  const mapped: string[] = [];
+  for (const raw of original) {
+    const key = raw.toLowerCase();
+    if (CATEGORY_REMOVALS.has(key)) {
+      const target = CATEGORY_REMAP[key];
+      if (target) mapped.push(target);
+    } else {
+      mapped.push(raw); // keep original form
+    }
+  }
+  const finalCats = Array.from(new Set(mapped));
+  return { ...p, categories: finalCats };
+});
+
+// Build category labels from mapped list (excluding any still in removals just in case)
+const categoryLabelEntries: [string,string][] = [];
+const seen = new Set<string>();
+for (const p of RAW_PROJECTS) {
+  const list = (p.categories && p.categories.length ? p.categories : [p.category]).filter(Boolean) as string[];
+  for (const raw of list) {
+    const key = raw.trim().toLowerCase();
+    if (CATEGORY_REMOVALS.has(key)) continue;
+    if (!seen.has(key)) {
+      seen.add(key);
+      const label = raw.replace(/[-_]/g,' ').replace(/\b\w/g, ch => ch.toUpperCase());
+      categoryLabelEntries.push([key,label]);
+    }
+  }
+}
+categoryLabelEntries.sort((a,b) => a[1].localeCompare(b[1]));
+const CATEGORY_LABELS: Record<string,string> = { all: 'All Categories' };
+for (const [k,v] of categoryLabelEntries) CATEGORY_LABELS[k] = v;
 
 type Project = {
   title: string;
@@ -45,19 +85,49 @@ type Project = {
 export default function ProjectsShowcase() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("all");
+  const [visibleCount, setVisibleCount] = useState(10);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return (projects as Project[]).filter(p => {
-      const cats = (p.categories && p.categories.length ? p.categories : [p.category]).filter(Boolean).map(c => c!.toLowerCase());
-      const catOk = category === "all" || cats.includes(category);
-      const text = (p.title + " " + p.description + " " + (p.tags || []).join(" ") + " " + cats.join(" ")).toLowerCase();
-      const qOk = !q || text.includes(q);
-      return catOk && qOk;
+    const selected = category.toLowerCase();
+    const isAll = selected === 'all' || !CATEGORY_LABELS[selected];
+  return RAW_PROJECTS.filter(p => {
+      const catsRaw = (p.categories && p.categories.length ? p.categories : [p.category]).filter(Boolean) as string[];
+      const catsLower = catsRaw.map(c => c.toLowerCase());
+      if (!isAll && !catsLower.includes(selected)) return false;
+      if (!q) return true;
+      const text = (p.title + ' ' + p.description + ' ' + (p.tags || []).join(' ') + ' ' + catsRaw.join(' ')).toLowerCase();
+      return text.includes(q);
     });
   }, [query, category]);
 
+  // Reset visible count when filters change
+  const isAllCategory = category === 'all' || !CATEGORY_LABELS[category];
   const activeCount = filtered.length;
+  const displayedProjects = isAllCategory ? filtered.slice(0, visibleCount) : filtered;
+
+  useEffect(() => {
+    // Reset when category or query changes
+    setVisibleCount(10);
+  }, [category, query]);
+
+  useEffect(() => {
+    if (!isAllCategory) return; // only apply infinite scroll on All
+    if (!sentinelRef.current) return;
+    const el = sentinelRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const first = entries[0];
+        if (first.isIntersecting) {
+          setVisibleCount(v => (v < activeCount ? Math.min(v + 10, activeCount) : v));
+        }
+      },
+      { rootMargin: '200px 0px 400px 0px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isAllCategory, activeCount, displayedProjects.length]);
 
   return (
     <section id="projects" aria-label="Projects" className="py-16 sm:py-24">
@@ -98,27 +168,38 @@ export default function ProjectsShowcase() {
                   key={key}
                   size="sm"
                   variant={isActive ? "default" : "secondary"}
-                  onClick={() => setCategory(key)}
+                  onClick={() => {
+                    setCategory(key);
+                    setVisibleCount(10);
+                  }}
                   className="rounded-full px-4"
                 >
                   {label}
                 </Button>
               );
             })}
-            <div className="ml-auto text-xs text-muted-foreground self-center">{activeCount} shown</div>
+            <div className="ml-auto text-xs text-muted-foreground self-center">
+              {isAllCategory ? `${Math.min(displayedProjects.length, activeCount)} / ${activeCount} shown` : `${activeCount} shown`}
+            </div>
           </div>
         </header>
 
         <motion.ul
-          key={category + query}
+          // Stable key prevents full remount when increasing visibleCount
+          key={category + '|' + query}
           variants={container}
           initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
+          animate="show"
           className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
         >
-          {filtered.map((p) => (
-            <motion.li key={p.title} variants={item}>
+          {displayedProjects.map((p) => (
+            <motion.li
+              key={p.title}
+              variants={item}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               <Card
                 className="interactive-card interactive-card-transition overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm hover:shadow-xl"
                 onPointerMove={(e) => {
@@ -179,10 +260,24 @@ export default function ProjectsShowcase() {
           ))}
           {filtered.length === 0 && (
             <div className="col-span-full text-sm text-muted-foreground p-8 border border-dashed rounded-md text-center">
-              No projects match your search.
+              {RAW_PROJECTS.length === 0 ? 'No project data found (JSON failed to load).' : 'No projects match your search or filter.'}
             </div>
           )}
         </motion.ul>
+        {isAllCategory && displayedProjects.length < activeCount && (
+          <>
+            <div ref={sentinelRef} className="h-2 w-full" aria-hidden="true" />
+            <div className="mt-8 flex justify-center">
+              <Button
+                variant="secondary"
+                onClick={() => setVisibleCount(v => Math.min(v + 10, activeCount))}
+                className="px-6"
+              >
+                Load More
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

@@ -1,30 +1,268 @@
+
 [
   {
-    "title": "Time and Thought",
-    "description": "A curated blog platform for sharing insights and reflections.",
-    "image": "https://www.abdulhajees.in/Resources/project_3.jpg",
-    "demoUrl": "https://blogs.abdulhajees.in/",
-    "githubUrl": "https://github.com/aj05hacker/time-and-thought",
+    "title": "Project Gallery",
+    "description": "A comprehensive project gallery showcasing web applications and creative digital experiences.",
+    "image": "https://projects-gallery-screenshots.vercel.app/projects.abdulhajees.in.png",
+    "demoUrl": "https://projects.abdulhajees.in",
+    "githubUrl": "",
     "isPublic": true,
-    "categories": ["portfolio", "services"]
+    "categories": ["web-app", "personal", "management"],
+    "tags": ["gallery", "showcase", "web"]
   },
   {
-    "title": "AH ChatBot",
-    "description": "A chatbot using Gemini API, with a clean UI and source code.",
-    "image": "/screenshots/ah-chatbot.png",
-    "demoUrl": "https://ahchatbot.abdulhajees.in/",
-    "githubUrl": "https://github.com/aj05hacker/ah-chatbot",
+    "title": "Sigmahub - Social Platform",
+    "description": "The next generation professional networking platform that connects talent with opportunities",
+    "image": "https://projects-gallery-screenshots.vercel.app/sigmahub.abdulhajees.in.png",
+    "demoUrl": "https://sigmahub.abdulhajees.in",
+    "githubUrl": "",
     "isPublic": true,
-    "tags": ["Chatbot", "AI", "Gemini API"],
-    "categories": ["ai", "portfolio", "prototypes"]
+    "categories": ["business", "prototype", "web-app"]
   },
   {
-    "title": "Portfolio Yellow",
-    "description": "A creative personal portfolio site with playful UI.",
-    "image": "/screenshots/portfolio-yellow.png",
-    "demoUrl": "https://portfolio.abdulhajees.in/",
+    "title": "Drive",
+    "description": "A Telegram Bcloud storage and file management solution with secure access and sharing capabilities.",
+    "image": "https://projects-gallery-screenshots.vercel.app/drive.abdulhajees.in.png",
+    "demoUrl": "https://drive.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["tools", "utility"]
+  },
+  {
+    "title": "Sigma HuB – Careers Portal",
+    "description": "A sleek and functional careers portal where applicants can browse openings and submit job applications directly online. Built with a clean UI, responsive design, and smooth form handling — originally developed as a recruitment task, now rebranded for showcase as Sigma HuB.",
+    "image": "https://projects-gallery-screenshots.vercel.app/monitpro.abdulhajees.in.png",
+    "demoUrl": "https://monitpro.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["business", "prototype"]
+  },
+
+  {
+    "title": "EduHub - HTML Course",
+    "description": "An interactive HTML learning platform with comprehensive tutorials and hands-on coding exercises.",
+    "image": "https://projects-gallery-screenshots.vercel.app/course-html.abdulhajees.in.png",
+    "demoUrl": "https://course-html.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["education", "learning","ai"]
+  },
+  {
+    "title": "EduHub- Prompt Engineering Course",
+    "description": "A specialized course platform teaching prompt engineering techniques for AI applications.",
+    "image": "https://projects-gallery-screenshots.vercel.app/course-prompt-engineering.abdulhajees.in.png",
+    "demoUrl": "https://course-prompt-engineering.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["education", "learning","ai"]
+  },
+  {
+    "title": "AH Assistant AI",
+    "description": " A custom-trained AI built on my own data, designed to answer questions and think like my digital twin",
+    "image": "https://projects-gallery-screenshots.vercel.app/about.abdulhajees.in.png",
+    "demoUrl": "https://about.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["portfolio", "personal"]
+  },
+  {
+    "title": "AH Chatbot",
+    "description": "A custom-built chat experience powered by Google’s Gemini API, wrapped in a sleek, responsive UI for smooth, human-like conversations.",
+    "image": "https://projects-gallery-screenshots.vercel.app/ai.abdulhajees.in.png",
+    "demoUrl": "https://ai.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["ai", "chatbot", "tools"]
+  },
+  {
+    "title": "AH Trackr - Inventory Management System",
+    "description": "AI-Powered Inventory Management – A complete system for tracking stock, managing orders, and predicting demand with AI insights. Streamlines inventory control from warehouse to sales, all in one smart dashboard.",
+    "image": "https://projects-gallery-screenshots.vercel.app/ahtrackr.abdulhajees.in.png",
+    "demoUrl": "https://ahtrackr.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["tools", "utility", "ai", "business"]
+  },
+  {
+    "title": "Search Hub",
+    "description": "Your one-stop homepage for exploring the web smarter. A curated mix of search engines, AI assistants, and developer-friendly tools — all in one clean, fast, and browser-ready dashboard.",
+    "image": "https://projects-gallery-screenshots.vercel.app/search.abdulhajees.in.png",
+    "demoUrl": "https://search.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["search", "tools", "utility"]
+  },
+  {
+    "title": "AH Search Hub",
+    "description": "A centralized search hub aggregating multiple search engines and data sources.",
+    "image": "https://projects-gallery-screenshots.vercel.app/ahsearch-hub.vercel.app.png",
+    "demoUrl": "https://ahsearch-hub.vercel.app",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["web-app", "prototype","tools"]
+  },
+  {
+    "title": "Student ERP System ",
+    "description": "A secure, AI-powered student management platform with tools for data handling, mark management, and performance tracking. Login required for access — peek at the polished login page, but the real magic stays behind the password.",
+    "image": "https://projects-gallery-screenshots.vercel.app/erp3.abdulhajees.in.png",
+    "demoUrl": "https://erp3.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["business", "management", "tools"],
+    "isprotected": true
+  },
+  {
+    "title": "Abdul Hajees Portfolio",
+    "description": "The main professional website showcasing portfolio, services, and contact information.",
+    "image": "https://projects-gallery-screenshots.vercel.app/www.abdulhajees.in.png",
+    "demoUrl": "https://www.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["tools", "utility"]
+  },
+  {
+    "title": "Askit AI",
+    "description": "An intelligent Q&A platform powered by AI for answering questions and providing assistance.",
+    "image": "https://projects-gallery-screenshots.vercel.app/askit.abdulhajees.in.png",
+    "demoUrl": "https://askit.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["ai", "chatbot", "tools"]
+  },
+  {
+    "title": "AskIT ERP System - Student Info Module",
+    "description": "A standalone tool for managing and storing student profiles, academic details, and personal data with a clean, user-friendly interface. Built for quick access, easy updates, and secure record handling.",
+    "image": "https://projects-gallery-screenshots.vercel.app/erp2.abdulhajees.in.png",
+    "demoUrl": "https://erp2.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["business", "management", "tools"]
+  },
+  {
+    "title": "AskIT ERP System - Dashboard module",
+    "description": "AskIT – Where AI meets student data for faster, smarter, and way cooler campus management.",
+    "image": "https://projects-gallery-screenshots.vercel.app/erp.abdulhajees.in.png",
+    "demoUrl": "https://erp.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["business", "management", "tools", "ai"]
+  },
+  {
+    "title": "AHExpenses",
+    "description": "A financial tracking and budgeting application for personal expense management and analysis.",
+    "image": "https://projects-gallery-screenshots.vercel.app/money.abdulhajees.in.png",
+    "demoUrl": "https://money.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["tools", "utility"]
+  },
+  {
+    "title": "AH Webcrafts",
+    "description": "Freelance Brand Page - A clean, personal showcase of my freelance web design & dev services—UI/UX, SEO, and performance optimization—all under my own brand.",
+    "image": "https://projects-gallery-screenshots.vercel.app/ahwebcrafts.abdulhajees.in.png",
+    "demoUrl": "https://ahwebcrafts.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["tools", "utility"]
+  },
+  {
+    "title": "Landing page for EduTech Company",
+    "description": "An educational technology platform offering programming tutorials and coding resources.",
+    "image": "https://projects-gallery-screenshots.vercel.app/learntechzo-17fs.vercel.app.png",
+    "demoUrl": "https://learntechzo-17fs.vercel.app",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["web-app", "prototype"]
+  },
+  {
+    "title": "Login Page 2",
+    "description": "A sleek, minimal login interface built for simplicity and focus. No distractions, no gimmicks — just a clean gateway to access what’s inside.",
+    "image": "https://projects-gallery-screenshots.vercel.app/login2-ebon.vercel.app.png",
+    "demoUrl": "https://login2-ebon.vercel.app",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["web-app", "prototype"]
+  },
+
+  {
+    "title": "Login Page",
+    "description": "A specialized login portal with greenhouse-themed interface and secure access controls.",
+    "image": "https://projects-gallery-screenshots.vercel.app/greenhouse-login.abdulhajees.in.png",
+    "demoUrl": "https://greenhouse-login.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["tools", "utility"]
+  },
+  {
+    "title": "Askit AI chat prototype",
+    "description": "An AI-powered assistant platform for intelligent conversations and automated task assistance.",
+    "image": "https://projects-gallery-screenshots.vercel.app/askitai.vercel.app.png",
+    "demoUrl": "https://askitai.vercel.app",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["ai", "prototype"]
+  },
+  {
+    "title": "Food Fusion",
+    "description": "A food donation platform connecting donors with recipients for community food sharing.",
+    "image": "https://projects-gallery-screenshots.vercel.app/food-fusion-donate.vercel.app.png",
+    "demoUrl": "https://food-fusion-donate.vercel.app",
     "githubUrl": "",
     "isPublic": false,
-    "categories": ["portfolio", "landing"]
+    "categories": ["web-app", "prototype"]
+  },
+  {
+    "title": "AH Bot",
+    "description": "A chatbot application with conversational AI capabilities and automated response system.",
+    "image": "https://projects-gallery-screenshots.vercel.app/ahbot.vercel.app.png",
+    "demoUrl": "https://ahbot.vercel.app",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["ai", "chatbot", "tools"]
+  },
+  {
+    "title": "AH Assistant",
+    "description": "A virtual assistant application providing automated help and intelligent task management.",
+    "image": "https://projects-gallery-screenshots.vercel.app/ah-assistant.vercel.app.png",
+    "demoUrl": "https://ah-assistant.vercel.app",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["web-app", "prototype"]
+  },
+  {
+    "title": "Edu",
+    "description": "An educational platform offering courses, tutorials, and learning resources for students.",
+    "image": "https://projects-gallery-screenshots.vercel.app/edu.abdulhajees.in.png",
+    "demoUrl": "https://edu.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["education", "learning"]
+  },
+  {
+    "title": "Sigma Search",
+    "description": "An advanced search application with powerful filtering and result optimization algorithms.",
+    "image": "https://projects-gallery-screenshots.vercel.app/sigma-search.vercel.app.png",
+    "demoUrl": "https://sigma-search.vercel.app",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["search", "tools", "utility"]
+  },
+  {
+    "title": "Time and Thoughts",
+    "description": "A personal blogging platform for sharing thoughts, insights, and technical articles.",
+    "image": "https://projects-gallery-screenshots.vercel.app/blogs.abdulhajees.in.png",
+    "demoUrl": "https://blogs.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["portfolio", "personal"]
+  },
+  {
+    "title": "Custom 404 Page",
+    "description": "A creative 404 error page with engaging design and helpful navigation options.",
+    "image": "https://projects-gallery-screenshots.vercel.app/404.abdulhajees.in.png",
+    "demoUrl": "https://404.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["tools", "utility"]
   }
 ]
