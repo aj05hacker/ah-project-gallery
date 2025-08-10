@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Time and Thought",
+    "description": "A curated blog platform for sharing insights and reflections.",
+    "image": "https://www.abdulhajees.in/Resources/project_3.jpg",
+    "demoUrl": "https://blogs.abdulhajees.in/",
+    "githubUrl": "https://github.com/aj05hacker/time-and-thought",
+    "isPublic": true
+  },
+  {
+    "title": "AH ChatBot",
+    "description": "A chatbot using Gemini API, with a clean UI and source code.",
+    "image": "/screenshots/ah-chatbot.png",
+    "demoUrl": "https://ahchatbot.abdulhajees.in/",
+    "githubUrl": "https://github.com/aj05hacker/ah-chatbot",
+    "isPublic": true,
+    "tags": ["Chatbot", "AI", "Gemini API"]
+  },
+  {
+    "title": "Portfolio Yellow",
+    "description": "A creative personal portfolio site with playful UI.",
+    "image": "/screenshots/portfolio-yellow.png",
+    "demoUrl": "https://portfolio.abdulhajees.in/",
+    "githubUrl": "",
+    "isPublic": false
+  }
+]

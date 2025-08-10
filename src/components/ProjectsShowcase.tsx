@@ -2,57 +2,7 @@ import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-
-interface ProjectItem {
-  title: string;
-  description: string;
-  image: string;
-  url: string;
-  tags?: string[];
-}
-
-const projects: ProjectItem[] = [
-  {
-    title: "Time and Thought",
-    description:
-      "A blog showcase powered by Firebase where anyone can submit posts. Content is managed dynamically for easy publishing.",
-    image: "https://www.abdulhajees.in/Resources/project_1.jpg",
-    url: "https://blogs.abdulhajees.in/",
-    tags: ["Firebase", "Blog", "CMS"],
-  },
-  {
-    title: "AH Chat Bot",
-    description:
-      "Conversational AI built with Google Gemini API that simulates human‑like interactions with fast, contextual responses.",
-    image: "https://www.abdulhajees.in/Resources/project_2.jpg",
-    url: "https://ai.abdulhajees.in/",
-    tags: ["AI", "Gemini", "Chat"],
-  },
-  {
-    title: "Portfolio Website",
-    description:
-      "A personal portfolio showcasing skills, experiences, certificates, and projects — a reflection of professional growth.",
-    image: "https://www.abdulhajees.in/Resources/project_3.jpg",
-    url: "https://me.abdulhajees.in/",
-    tags: ["Portfolio", "Design", "Web"],
-  },
-  {
-    title: "Search Hub",
-    description:
-      "A web tool with a multi‑engine search bar for platforms like Shodan and GHDB — great for cross‑platform discovery.",
-    image: "https://www.abdulhajees.in/Resources/project_4.jpg",
-    url: "https://search.abdulhajees.in/",
-    tags: ["Search", "Utilities"],
-  },
-  {
-    title: "AH Assistant AI",
-    description:
-      "An assistant that shares insights about Abdul Hajees — work, achievements, and interests — via conversational AI.",
-    image: "https://www.abdulhajees.in/Resources/project_5.jpg",
-    url: "https://about.abdulhajees.in/",
-    tags: ["AI", "Profile"],
-  },
-];
+import projects from "../projects.json";
 
 const container = {
   hidden: { opacity: 0 },
@@ -90,33 +40,42 @@ export default function ProjectsShowcase() {
         >
           {projects.map((p) => (
             <motion.li key={p.title} variants={item}>
-              <a href={p.url} target="_blank" rel="noopener noreferrer" className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg">
-                <Card className="overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm transition-shadow hover:shadow-xl hover:shadow-[var(--shadow-elev)]">
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <img
-                      src={p.image}
-                      alt={`${p.title} preview by Abdul Hajees`}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
-                  </div>
-                  <div className="p-5">
-                    <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
-                    <p className="text-sm text-muted-foreground line-clamp-3">{p.description}</p>
-                    {p.tags && (
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {p.tags.map((t) => (
-                          <Badge key={t} variant="secondary">{t}</Badge>
-                        ))}
-                      </div>
-                    )}
-                    <div className="mt-4">
-                      <Button variant="secondary" className="hover-scale">View live project</Button>
+              <Card className="overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm transition-shadow hover:shadow-xl hover:shadow-[var(--shadow-elev)]">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src={p.image}
+                    alt={`${p.title} preview by Abdul Hajees`}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
+                </div>
+                <div className="p-5">
+                  <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-3">{p.description}</p>
+                  {p.tags && (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {p.tags.map((t: string) => (
+                        <Badge key={t} variant="secondary">{t}</Badge>
+                      ))}
                     </div>
+                  )}
+                  <div className="mt-4 flex gap-2">
+                    {p.demoUrl && (
+                      <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+                        <Button variant="secondary" className="hover-scale">View Project</Button>
+                      </a>
+                    )}
+                    {p.isPublic && p.githubUrl ? (
+                      <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+                        <Button variant="outline" className="hover-scale">GitHub</Button>
+                      </a>
+                    ) : (
+                      <Button variant="outline" className="hover-scale" disabled>Private</Button>
+                    )}
                   </div>
-                </Card>
-              </a>
+                </div>
+              </Card>
             </motion.li>
           ))}
         </motion.ul>
