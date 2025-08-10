@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { Github } from "lucide-react";
 import projects from "../projects.json";
 
 
@@ -48,6 +49,21 @@ const CATEGORY_REMAP: Record<string,string> = {
   personal: 'portfolio'
 };
 
+// Special categories that should not appear in filters
+const SPECIAL_CATEGORIES = new Set(['coming soon', 'coming-soon', 'maintenance', 'under-maintenance']);
+
+// Helper function to check if a project is "coming soon"
+const isComingSoon = (project: Project): boolean => {
+  const categories = (project.categories && project.categories.length ? project.categories : [project.category]).filter(Boolean) as string[];
+  return categories.some(cat => ['coming soon', 'coming-soon'].includes(cat.toLowerCase()));
+};
+
+// Helper function to check if a project is "under maintenance"
+const isMaintenance = (project: Project): boolean => {
+  const categories = (project.categories && project.categories.length ? project.categories : [project.category]).filter(Boolean) as string[];
+  return categories.some(cat => ['maintenance', 'under-maintenance'].includes(cat.toLowerCase()));
+};
+
 const RAW_PROJECTS: Project[] = (Array.isArray(projects) ? (projects as Project[]) : []).map(p => {
   const original = (p.categories && p.categories.length ? p.categories : [p.category]).filter(Boolean) as string[];
   const mapped: string[] = [];
@@ -71,7 +87,7 @@ for (const p of RAW_PROJECTS) {
   const list = (p.categories && p.categories.length ? p.categories : [p.category]).filter(Boolean) as string[];
   for (const raw of list) {
     const key = raw.trim().toLowerCase();
-    if (CATEGORY_REMOVALS.has(key)) continue;
+    if (CATEGORY_REMOVALS.has(key) || SPECIAL_CATEGORIES.has(key)) continue; // Exclude special categories from filters
     if (!seen.has(key)) {
       seen.add(key);
       const label = raw.replace(/[-_]/g,' ').replace(/\b\w/g, ch => ch.toUpperCase());
@@ -256,9 +272,18 @@ export default function ProjectsShowcase() {
                                 src={p.image}
                                 alt={`${p.title} preview by Abdul Hajees`}
                                 loading="lazy"
-                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                                  isComingSoon(p) ? 'blur-sm' : ''
+                                }`}
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
+                              {isComingSoon(p) && (
+                                <div className="absolute top-4 right-4">
+                                  <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-yellow-500 text-yellow-600">
+                                    🔒 Locked
+                                  </Badge>
+                                </div>
+                              )}
                             </div>
                             <div className="p-5 lift relative z-[1]">
                               <div className="flex items-start justify-between gap-2">
@@ -273,18 +298,34 @@ export default function ProjectsShowcase() {
                                 </div>
                               )}
                               <div className="mt-4 flex gap-2">
-                                {p.demoUrl && (
-                                  <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
-                                    <Button variant="secondary" className="hover-scale">View Project</Button>
-                                  </a>
-                                )}
-                                {p.isPublic && p.githubUrl ? (
-                                  <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
-                                    <Button variant="outline" className="hover-scale">GitHub</Button>
-                                  </a>
+                                {isComingSoon(p) ? (
+                                  <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
+                                    When it's awesome
+                                  </Button>
+                                ) : isMaintenance(p) ? (
+                                  <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
+                                    Under Maintenance
+                                  </Button>
                                 ) : (
-                                  <Button variant="outline" className="hover-scale" disabled>Private</Button>
+                                  p.demoUrl && (
+                                    <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+                                      <Button variant="secondary" className="hover-scale">View Project</Button>
+                                    </a>
+                                  )
                                 )}
+                                {p.githubUrl ? (
+                                  <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+                                    <Button variant="outline" className="hover-scale">
+                                      <Github className="w-4 h-4 mr-2" />
+                                      View Code
+                                    </Button>
+                                  </a>
+                                ) : !p.isPublic ? (
+                                  <Button variant="outline" className="hover-scale" disabled>
+                                    <Github className="w-4 h-4 mr-2" />
+                                    Private
+                                  </Button>
+                                ) : null}
                               </div>
                             </div>
                           </Card>
@@ -333,9 +374,25 @@ export default function ProjectsShowcase() {
                               src={p.image}
                               alt={`${p.title} preview by Abdul Hajees`}
                               loading="lazy"
-                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                                isComingSoon(p) ? 'blur-sm' : ''
+                              }`}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
+                            {isComingSoon(p) && (
+                              <div className="absolute top-4 right-4">
+                                <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-yellow-500 text-yellow-600">
+                                  🔒 Locked
+                                </Badge>
+                              </div>
+                            )}
+                            {isMaintenance(p) && (
+                              <div className="absolute top-4 right-4">
+                                <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-orange-500 text-orange-600">
+                                  🔧 Maintenance
+                                </Badge>
+                              </div>
+                            )}
                           </div>
                           <div className="p-5 lift relative z-[1]">
                             <div className="flex items-start justify-between gap-2">
@@ -350,18 +407,34 @@ export default function ProjectsShowcase() {
                               </div>
                             )}
                             <div className="mt-4 flex gap-2">
-                              {p.demoUrl && (
-                                <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
-                                  <Button variant="secondary" className="hover-scale">View Project</Button>
-                                </a>
-                              )}
-                              {p.isPublic && p.githubUrl ? (
-                                <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
-                                  <Button variant="outline" className="hover-scale">GitHub</Button>
-                                </a>
+                              {isComingSoon(p) ? (
+                                <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
+                                  When it's awesome
+                                </Button>
+                              ) : isMaintenance(p) ? (
+                                <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
+                                  Under Maintenance
+                                </Button>
                               ) : (
-                                <Button variant="outline" className="hover-scale" disabled>Private</Button>
+                                p.demoUrl && (
+                                  <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+                                    <Button variant="secondary" className="hover-scale">View Project</Button>
+                                  </a>
+                                )
                               )}
+                              {p.githubUrl ? (
+                                <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+                                  <Button variant="outline" className="hover-scale">
+                                    <Github className="w-4 h-4 mr-2" />
+                                    View Code
+                                  </Button>
+                                </a>
+                              ) : !p.isPublic ? (
+                                <Button variant="outline" className="hover-scale" disabled>
+                                  <Github className="w-4 h-4 mr-2" />
+                                  Private
+                                </Button>
+                              ) : null}
                             </div>
                           </div>
                         </Card>
@@ -417,9 +490,25 @@ export default function ProjectsShowcase() {
                       src={p.image}
                       alt={`${p.title} preview by Abdul Hajees`}
                       loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                        isComingSoon(p) ? 'blur-sm' : ''
+                      }`}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
+                    {isComingSoon(p) && (
+                      <div className="absolute top-4 right-4">
+                        <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-yellow-500 text-yellow-600">
+                          🔒 Locked
+                        </Badge>
+                      </div>
+                    )}
+                    {isMaintenance(p) && (
+                      <div className="absolute top-4 right-4">
+                        <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-orange-500 text-orange-600">
+                          🔧 Maintenance
+                        </Badge>
+                      </div>
+                    )}
                   </div>
                   <div className="p-5 lift relative z-[1]">
                     <div className="flex items-start justify-between gap-2">
@@ -434,18 +523,34 @@ export default function ProjectsShowcase() {
                       </div>
                     )}
                     <div className="mt-4 flex gap-2">
-                      {p.demoUrl && (
-                        <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
-                          <Button variant="secondary" className="hover-scale">View Project</Button>
-                        </a>
-                      )}
-                      {p.isPublic && p.githubUrl ? (
-                        <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
-                          <Button variant="outline" className="hover-scale">GitHub</Button>
-                        </a>
+                      {isComingSoon(p) ? (
+                        <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
+                          When it's awesome
+                        </Button>
+                      ) : isMaintenance(p) ? (
+                        <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
+                          Under Maintenance
+                        </Button>
                       ) : (
-                        <Button variant="outline" className="hover-scale" disabled>Private</Button>
+                        p.demoUrl && (
+                          <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+                            <Button variant="secondary" className="hover-scale">View Project</Button>
+                          </a>
+                        )
                       )}
+                      {p.githubUrl ? (
+                        <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+                          <Button variant="outline" className="hover-scale">
+                            <Github className="w-4 h-4 mr-2" />
+                            View Code
+                          </Button>
+                        </a>
+                      ) : !p.isPublic ? (
+                        <Button variant="outline" className="hover-scale" disabled>
+                          <Github className="w-4 h-4 mr-2" />
+                          Private
+                        </Button>
+                      ) : null}
                     </div>
                   </div>
                 </Card>

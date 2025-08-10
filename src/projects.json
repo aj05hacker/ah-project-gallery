@@ -1,14 +1,34 @@
 
-[
-  {
+[  {
+    "title": "Pludo – Coming Soon",
+    "description": "Something smart is brewing… a little sidekick for your site, maybe? 🤫 Still under wraps, still in the lab, but it’s learning fast. Watch this space. 👀",
+    "image": "https://projects-gallery-screenshots.vercel.app/beta.pludo.online.png",
+    "demoUrl": "#",
+    "githubUrl": "",
+    "isPublic": false,
+    "categories": ["coming-soon", "ai"],
+    "tags": ["Mystory", "InTheLab", "comming soon"],
+    "year": 2025
+  },
+    {
     "title": "Project Gallery",
     "description": "A comprehensive project gallery showcasing web applications and creative digital experiences.",
     "image": "https://projects-gallery-screenshots.vercel.app/projects.abdulhajees.in.png",
     "demoUrl": "https://projects.abdulhajees.in",
     "githubUrl": "",
-    "isPublic": true,
+    "isPublic":false,
     "categories": ["web-app", "personal", "management"],
     "tags": ["gallery", "showcase", "web"],
+    "year": 2025
+  },
+    {
+    "title": "AH Webcrafts",
+    "description": "Freelance Brand Page - A clean, personal showcase of my freelance web design & dev services—UI/UX, SEO, and performance optimization—all under my own brand.",
+    "image": "https://projects-gallery-screenshots.vercel.app/ahwebcrafts.abdulhajees.in.png",
+    "demoUrl": "https://ahwebcrafts.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["tools", "utility"],
     "year": 2025
   },
   {
@@ -19,7 +39,8 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["business", "prototype", "web-app"],
-    "year": 2025
+    "year": 2025,
+    "tags": ["social", "networking", "web"]
   },
   {
     "title": "Drive",
@@ -28,7 +49,7 @@
     "demoUrl": "https://drive.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["tools", "utility"],
+    "categories": ["tools", "utility", "maintenance"],
     "year": 2025
   },
   {
@@ -168,16 +189,6 @@
     "description": "A financial tracking and budgeting application for personal expense management and analysis.",
     "image": "https://projects-gallery-screenshots.vercel.app/money.abdulhajees.in.png",
     "demoUrl": "https://money.abdulhajees.in",
-    "githubUrl": "",
-    "isPublic": true,
-    "categories": ["tools", "utility"],
-    "year": 2023
-  },
-  {
-    "title": "AH Webcrafts",
-    "description": "Freelance Brand Page - A clean, personal showcase of my freelance web design & dev services—UI/UX, SEO, and performance optimization—all under my own brand.",
-    "image": "https://projects-gallery-screenshots.vercel.app/ahwebcrafts.abdulhajees.in.png",
-    "demoUrl": "https://ahwebcrafts.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["tools", "utility"],
