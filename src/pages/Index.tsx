@@ -1,4 +1,5 @@
 import Spotlight from "@/components/Spotlight";
+import TopRightControls from "@/components/TopRightControls";
 import ProjectsShowcase from "@/components/ProjectsShowcase";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { Linkedin, Mail, Globe, Github, Instagram } from "lucide-react";
 const Index = () => {
   return (
     <main>
+      <TopRightControls />
       <Helmet>
   <title>Abdul Hajees · Project Gallery</title>
         <meta
