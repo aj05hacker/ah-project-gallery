@@ -1,5 +1,6 @@
 import Spotlight from "@/components/Spotlight";
 import TopRightControls from "@/components/TopRightControls";
+import { Download } from "lucide-react";
 import ProjectsShowcase from "@/components/ProjectsShowcase";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,9 @@ import { Linkedin, Mail, Globe, Github, Instagram } from "lucide-react";
 const Index = () => {
   return (
     <main>
-      <TopRightControls />
+      <div className="flex justify-end items-center gap-2 pt-4 pr-4">
+        <TopRightControls />
+      </div>
       <Helmet>
         <title>Abdul Hajees | Web Developer Portfolio & Project Gallery</title>
         <meta

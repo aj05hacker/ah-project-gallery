@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Sun, Moon } from "lucide-react";
 
 function ThemeToggle() {
@@ -52,7 +53,7 @@ function ThemeToggle() {
 function HireMeButton() {
   return (
     <a
-      href="mailto:me@abdulhajees.in?subject=Project%20Inquiry%20from%20Gallery"
+      href="/hireme"
       className="relative inline-flex items-center justify-center rounded-full px-5 h-10 text-sm font-medium bg-gradient-to-tr from-primary via-primary/80 to-primary/60 text-primary-foreground shadow hover:shadow-md transition-shadow group overflow-hidden"
     >
       <span className="relative z-10">Hire Me</span>
@@ -63,11 +64,13 @@ function HireMeButton() {
 }
 
 export default function TopRightControls() {
+  const location = useLocation();
+  const isHireMePage = location.pathname === "/hireme";
   return (
     <div className="pointer-events-none fixed top-4 right-4 z-50 flex gap-3">
       <div className="pointer-events-auto flex gap-3">
         <ThemeToggle />
-        <HireMeButton />
+        {!isHireMePage && <HireMeButton />}
       </div>
     </div>
   );
