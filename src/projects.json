@@ -23,13 +23,14 @@
   },
     {
     "title": "AH Webcrafts",
-    "description": "Freelance Brand Page - A clean, personal showcase of my freelance web design & dev services—UI/UX, SEO, and performance optimization—all under my own brand.",
+    "description": "Freelance Brand Page - A clean, personal showcase of my freelance web design & dev services UI/UX, SEO, and performance optimization -- all under my own brand.",
     "image": "https://projects-gallery-screenshots.vercel.app/ahwebcrafts.abdulhajees.in.png",
     "demoUrl": "https://ahwebcrafts.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["tools", "utility"],
-    "year": 2025
+    "year": 2025,
+    "tags": ["freelance", "web design", "development"]
   },
   {
     "title": "Sigmahub - Social Platform",
@@ -44,19 +45,19 @@
   },
   {
     "title": "Drive",
-    "description": "A Telegram Bcloud storage and file management solution with secure access and sharing capabilities.",
+    "description": "A Telegram Based cloud storage and file management solution with secure access and sharing capabilities.",
     "image": "https://projects-gallery-screenshots.vercel.app/drive.abdulhajees.in.png",
     "demoUrl": "https://drive.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["tools", "utility", "maintenance"],
+    "categories": ["tools", "utility", "maintenance","coming-soon"  ],
     "year": 2025
   },
   {
     "title": "Sigma HuB – Careers Portal",
     "description": "A sleek and functional careers portal where applicants can browse openings and submit job applications directly online. Built with a clean UI, responsive design, and smooth form handling — originally developed as a recruitment task, now rebranded for showcase as Sigma HuB.",
-    "image": "https://projects-gallery-screenshots.vercel.app/monitpro.abdulhajees.in.png",
-    "demoUrl": "https://monitpro.abdulhajees.in",
+    "image": "https://projects-gallery-screenshots.vercel.app/montipro.abdulhajees.in.png",
+    "demoUrl": "",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["business", "prototype"],
@@ -198,11 +199,11 @@
     "title": "Landing page for EduTech Company",
     "description": "An educational technology platform offering programming tutorials and coding resources.",
     "image": "https://projects-gallery-screenshots.vercel.app/learntechzo-17fs.vercel.app.png",
-    "demoUrl": "https://learntechzo-17fs.vercel.app",
+    "demoUrl": "https://edutech-landingpage.vercel.app",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["web-app", "prototype"],
-    "year": 2023
+    "year": 2024
   },
   {
     "title": "Login Page 2",
@@ -212,6 +213,7 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["web-app", "prototype"],
+    "tags": ["login", "interface", "minimal"],
     "year": 2023
   },
 
@@ -222,17 +224,8 @@
     "demoUrl": "https://greenhouse-login.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["tools", "utility"],
-    "year": 2023
-  },
-  {
-    "title": "Askit AI chat prototype",
-    "description": "An AI-powered assistant platform for intelligent conversations and automated task assistance.",
-    "image": "https://projects-gallery-screenshots.vercel.app/askitai.vercel.app.png",
-    "demoUrl": "https://askitai.vercel.app",
-    "githubUrl": "",
-    "isPublic": true,
-    "categories": ["ai", "prototype"],
+    "categories": ["web-app", "prototype"],
+    "tags": ["login", "interface", "greenhouse"],
     "year": 2023
   },
   {
@@ -242,26 +235,6 @@
     "demoUrl": "https://food-fusion-donate.vercel.app",
     "githubUrl": "",
     "isPublic": false,
-    "categories": ["web-app", "prototype"],
-    "year": 2023
-  },
-  {
-    "title": "AH Bot",
-    "description": "A chatbot application with conversational AI capabilities and automated response system.",
-    "image": "https://projects-gallery-screenshots.vercel.app/ahbot.vercel.app.png",
-    "demoUrl": "https://ahbot.vercel.app",
-    "githubUrl": "",
-    "isPublic": true,
-    "categories": ["ai", "chatbot", "tools"],
-    "year": 2023
-  },
-  {
-    "title": "AH Assistant",
-    "description": "A virtual assistant application providing automated help and intelligent task management.",
-    "image": "https://projects-gallery-screenshots.vercel.app/ah-assistant.vercel.app.png",
-    "demoUrl": "https://ah-assistant.vercel.app",
-    "githubUrl": "",
-    "isPublic": true,
     "categories": ["web-app", "prototype"],
     "year": 2023
   },
@@ -276,16 +249,6 @@
     "year": 2023
   },
   {
-    "title": "Sigma Search",
-    "description": "An advanced search application with powerful filtering and result optimization algorithms.",
-    "image": "https://projects-gallery-screenshots.vercel.app/sigma-search.vercel.app.png",
-    "demoUrl": "https://sigma-search.vercel.app",
-    "githubUrl": "",
-    "isPublic": true,
-    "categories": ["search", "tools", "utility"],
-    "year": 2023
-  },
-  {
     "title": "Time and Thoughts",
     "description": "A personal blogging platform for sharing thoughts, insights, and technical articles.",
     "image": "https://projects-gallery-screenshots.vercel.app/blogs.abdulhajees.in.png",
@@ -293,7 +256,7 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["portfolio", "personal"],
-    "year": 2023
+    "year": 2024
   },
   {
     "title": "Custom 404 Page",
