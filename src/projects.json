@@ -1,271 +1,289 @@
-
-[  {
+[
+  {
     "title": "Pludo – Coming Soon",
-    "description": "Something smart is brewing… a little sidekick for your site, maybe? 🤫 Still under wraps, still in the lab, but it’s learning fast. Watch this space. 👀",
+    "description": "A smart site sidekick is brewing still in the lab, learning fast. Watch this space for something new.",
     "image": "https://projects-gallery-screenshots.vercel.app/beta.pludo.online.png",
     "demoUrl": "#",
     "githubUrl": "",
     "isPublic": false,
     "categories": ["coming-soon", "ai"],
-    "tags": ["Mystory", "InTheLab", "comming soon"],
+    "tags": ["mystery", "in-the-lab", "coming-soon"],
     "year": 2025
   },
-    {
+  {
     "title": "Project Gallery",
-    "description": "A comprehensive project gallery showcasing web applications and creative digital experiences.",
+    "description": "A digital gallery to showcase web apps and creative projects in one place.",
     "image": "https://projects-gallery-screenshots.vercel.app/projects.abdulhajees.in.png",
     "demoUrl": "https://projects.abdulhajees.in",
     "githubUrl": "",
-    "isPublic":false,
+    "isPublic": false,
     "categories": ["web-app", "personal", "management"],
     "tags": ["gallery", "showcase", "web"],
     "year": 2025
   },
-    {
+  {
     "title": "AH Webcrafts",
-    "description": "Freelance Brand Page - A clean, personal showcase of my freelance web design & dev services UI/UX, SEO, and performance optimization -- all under my own brand.",
+    "description": "Personal brand site for freelance web design, UI/UX, SEO, and performance services.",
     "image": "https://projects-gallery-screenshots.vercel.app/ahwebcrafts.abdulhajees.in.png",
     "demoUrl": "https://ahwebcrafts.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["tools", "utility"],
     "year": 2025,
-    "tags": ["freelance", "web design", "development"]
+    "tags": ["freelance", "web-design", "branding"]
   },
   {
     "title": "Sigmahub - Social Platform",
-    "description": "The next generation professional networking platform that connects talent with opportunities",
+    "description": "A next-gen professional networking platform connecting talent and opportunities.",
     "image": "https://projects-gallery-screenshots.vercel.app/sigmahub.abdulhajees.in.png",
     "demoUrl": "https://sigmahub.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["business", "prototype", "web-app"],
     "year": 2025,
-    "tags": ["social", "networking", "web"]
+    "tags": ["social", "networking", "platform"]
   },
-    {
+  {
     "title": "AH Trackr - Inventory Management System",
-    "description": "AI-Powered Inventory Management – A complete system for tracking stock, managing orders, and predicting demand with AI insights. Streamlines inventory control from warehouse to sales, all in one smart dashboard.",
+    "description": "AI-powered system for tracking stock, managing orders, and predicting demand in one dashboard.",
     "image": "https://projects-gallery-screenshots.vercel.app/ahtrackr.abdulhajees.in.png",
     "demoUrl": "https://ahtrackr.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["tools", "utility", "ai", "business"],
-    "year": 2025
+    "year": 2025,
+    "tags": ["inventory", "ai", "dashboard"]
   },
   {
     "title": "Drive",
-    "description": "A Telegram Based cloud storage and file management solution with secure access and sharing capabilities.",
+    "description": "Telegram-based cloud storage and file management with secure sharing.",
     "image": "https://projects-gallery-screenshots.vercel.app/drive.abdulhajees.in.png",
     "demoUrl": "https://drive.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["tools", "utility", "maintenance","coming-soon"  ],
-    "year": 2025
+    "categories": ["tools", "utility", "maintenance", "coming-soon"],
+    "year": 2025,
+    "tags": ["cloud", "storage", "telegram"]
   },
   {
     "title": "Sigma HuB – Careers Portal",
-    "description": "A sleek and functional careers portal where applicants can browse openings and submit job applications directly online. Built with a clean UI, responsive design, and smooth form handling — originally developed as a recruitment task, now rebranded for showcase as Sigma HuB.",
+    "description": "A clean careers portal for browsing jobs and submitting applications online.",
     "image": "https://projects-gallery-screenshots.vercel.app/montipro.abdulhajees.in.png",
     "demoUrl": "",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["business", "prototype"],
-    "year": 2025
+    "year": 2025,
+    "tags": ["careers", "jobs", "portal"]
   },
-
   {
     "title": "EduHub - HTML Course",
-    "description": "An interactive HTML learning platform with comprehensive tutorials and hands-on coding exercises.",
+    "description": "Interactive HTML learning platform with tutorials and hands-on coding.",
     "image": "https://projects-gallery-screenshots.vercel.app/course-html.abdulhajees.in.png",
     "demoUrl": "https://course-html.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["education", "learning","ai"],
-    "year": 2025
+    "categories": ["education", "learning", "ai"],
+    "year": 2025,
+    "tags": ["html", "learning", "interactive"]
   },
   {
     "title": "EduHub- Prompt Engineering Course",
-    "description": "A specialized course platform teaching prompt engineering techniques for AI applications.",
+    "description": "A course platform teaching prompt engineering for AI applications.",
     "image": "https://projects-gallery-screenshots.vercel.app/course-prompt-engineering.abdulhajees.in.png",
     "demoUrl": "https://course-prompt-engineering.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["education", "learning","ai"],
-    "year": 2025
+    "categories": ["education", "learning", "ai"],
+    "year": 2025,
+    "tags": ["prompt-engineering", "ai", "course"]
   },
   {
     "title": "AH Assistant AI",
-    "description": " A custom-trained AI built on my own data, designed to answer questions and think like my digital twin",
+    "description": "A custom-trained AI that answers questions and thinks like my digital twin.",
     "image": "https://projects-gallery-screenshots.vercel.app/about.abdulhajees.in.png",
     "demoUrl": "https://about.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["portfolio", "personal"],
-    "year": 2025
+    "year": 2025,
+    "tags": ["ai", "assistant", "personal"]
   },
-    {
+  {
     "title": "Abdul Hajees Portfolio",
-    "description": "The main professional website showcasing portfolio, services, and contact information.",
+    "description": "My main professional website for portfolio, services, and contact.",
     "image": "https://projects-gallery-screenshots.vercel.app/www.abdulhajees.in.png",
     "demoUrl": "https://www.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["tools", "utility"],
-    "year": 2024
+    "year": 2024,
+    "tags": ["portfolio", "website", "contact"]
   },
   {
     "title": "AH Chatbot",
-    "description": "A custom-built chat experience powered by Google’s Gemini API, wrapped in a sleek, responsive UI for smooth, human-like conversations.",
+    "description": "A custom chatbot powered by Google Gemini API for human-like conversations.",
     "image": "https://projects-gallery-screenshots.vercel.app/ai.abdulhajees.in.png",
     "demoUrl": "https://ai.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["ai", "chatbot", "tools"],
-    "year": 2024
+    "year": 2024,
+    "tags": ["chatbot", "ai", "gemini"]
   },
   {
     "title": "Search Hub",
-    "description": "Your one-stop homepage for exploring the web smarter. A curated mix of search engines, AI assistants, and developer-friendly tools — all in one clean, fast, and browser-ready dashboard.",
+    "description": "A homepage for smarter web exploration with search engines and AI tools.",
     "image": "https://projects-gallery-screenshots.vercel.app/search.abdulhajees.in.png",
     "demoUrl": "https://search.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["search", "tools", "utility"],
-    "year": 2024
+    "year": 2024,
+    "tags": ["search", "dashboard", "ai"]
   },
   {
     "title": "AH Search Hub",
-    "description": "A centralized search hub aggregating multiple search engines and data sources.",
+    "description": "A centralized hub aggregating multiple search engines and data sources.",
     "image": "https://projects-gallery-screenshots.vercel.app/ahsearch-hub.vercel.app.png",
     "demoUrl": "https://ahsearch-hub.vercel.app",
     "githubUrl": "",
     "isPublic": true,
-    "categories": ["web-app", "prototype","tools"],
-    "year": 2024
+    "categories": ["web-app", "prototype", "tools"],
+    "year": 2024,
+    "tags": ["search", "hub", "aggregation"]
   },
   {
-    "title": "AskIT - Student ERP System ",
-    "description": "A secure, AI-powered student management platform with tools for data handling, mark management, and performance tracking. Login required for access — peek at the polished login page, but the real magic stays behind the password.",
+    "title": "AskIT - Student ERP System",
+    "description": "AI-powered student management with data handling, marks, and performance tracking.",
     "image": "https://projects-gallery-screenshots.vercel.app/erp3.abdulhajees.in.png",
     "demoUrl": "https://erp3.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["business", "management", "tools"],
     "isprotected": true,
-    "year": 2025
+    "year": 2025,
+    "tags": ["erp", "student", "ai"]
   },
   {
     "title": "Askit AI",
-    "description": "An intelligent Q&A platform powered by AI for answering questions and providing assistance.",
+    "description": "An AI Q&A platform for answering questions and providing assistance.",
     "image": "https://projects-gallery-screenshots.vercel.app/askit.abdulhajees.in.png",
     "demoUrl": "https://askit.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["ai", "chatbot", "tools"],
-    "year": 2025
+    "year": 2025,
+    "tags": ["ai", "qna", "platform"]
   },
   {
     "title": "AskIT ERP System - Student Info Module",
-    "description": "A standalone tool for managing and storing student profiles, academic details, and personal data with a clean, user-friendly interface. Built for quick access, easy updates, and secure record handling.",
+    "description": "A tool for managing student profiles, academic details, and records securely.",
     "image": "https://projects-gallery-screenshots.vercel.app/erp2.abdulhajees.in.png",
     "demoUrl": "https://erp2.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["business", "management", "tools"],
-    "year": 2025
+    "year": 2025,
+    "tags": ["erp", "student", "info"]
   },
   {
     "title": "AskIT ERP System - Dashboard module",
-    "description": "AskIT – Where AI meets student data for faster, smarter, and way cooler campus management.",
+    "description": "AI meets student data for smarter, faster campus management.",
     "image": "https://projects-gallery-screenshots.vercel.app/erp.abdulhajees.in.png",
     "demoUrl": "https://erp.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["business", "management", "tools", "ai"],
-    "year": 2025
+    "year": 2025,
+    "tags": ["erp", "dashboard", "ai"]
   },
   {
     "title": "AHExpenses",
-    "description": "A financial tracking and budgeting application for personal expense management and analysis.",
+    "description": "A budgeting app for tracking and analyzing personal expenses.",
     "image": "https://projects-gallery-screenshots.vercel.app/money.abdulhajees.in.png",
     "demoUrl": "https://money.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["tools", "utility"],
-    "year": 2024
+    "year": 2024,
+    "tags": ["budget", "expenses", "finance"]
   },
   {
     "title": "Landing page for EduTech Company",
-    "description": "An educational technology platform offering programming tutorials and coding resources.",
+    "description": "A landing page for an edtech platform offering programming tutorials.",
     "image": "https://projects-gallery-screenshots.vercel.app/edutech-landingpage.vercel.app.png",
     "demoUrl": "edutech-landingpage.vercel.app",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["web-app", "prototype"],
-    "year": 2024
+    "year": 2024,
+    "tags": ["landing", "edtech", "tutorials"]
   },
   {
     "title": "Login Page 2",
-    "description": "A sleek, minimal login interface built for simplicity and focus. No distractions, no gimmicks — just a clean gateway to access what’s inside.",
+    "description": "A minimal login interface built for simplicity and focus.",
     "image": "https://projects-gallery-screenshots.vercel.app/login2-ebon.vercel.app.png",
     "demoUrl": "https://login2-ebon.vercel.app",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["web-app", "prototype"],
-    "tags": ["login", "interface", "minimal"],
+    "tags": ["login", "minimal", "ui"],
     "year": 2023
   },
-
   {
     "title": "Login Page",
-    "description": "A specialized login portal with greenhouse-themed interface and secure access controls.",
+    "description": "A greenhouse-themed login portal with secure access controls.",
     "image": "https://projects-gallery-screenshots.vercel.app/greenhouse-login.abdulhajees.in.png",
     "demoUrl": "https://greenhouse-login.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["web-app", "prototype"],
-    "tags": ["login", "interface", "greenhouse"],
+    "tags": ["login", "greenhouse", "secure"],
     "year": 2023
   },
   {
     "title": "Food Fusion",
-    "description": "A food donation platform connecting donors with recipients for community food sharing.",
+    "description": "A food donation platform connecting donors and recipients for sharing.",
     "image": "https://projects-gallery-screenshots.vercel.app/food-fusion-donate.vercel.app.png",
     "demoUrl": "https://food-fusion-donate.vercel.app",
     "githubUrl": "",
     "isPublic": false,
     "categories": ["web-app", "prototype"],
-    "year": 2023
+    "year": 2023,
+    "tags": ["food", "donation", "community"]
   },
   {
-    "title": "Edu",
-    "description": "An educational platform offering courses, tutorials, and learning resources for students.",
+    "title": "Edu Hub",
+    "description": "An educational platform with courses, tutorials, and learning resources.",
     "image": "https://projects-gallery-screenshots.vercel.app/edu.abdulhajees.in.png",
     "demoUrl": "https://edu.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["education", "learning"],
-    "year": 2023
+    "year": 2023,
+    "tags": ["education", "courses", "resources"]
   },
   {
     "title": "Time and Thoughts",
-    "description": "A personal blogging platform for sharing thoughts, insights, and technical articles.",
+    "description": "A personal blog for sharing thoughts, insights, and technical articles.",
     "image": "https://projects-gallery-screenshots.vercel.app/blogs.abdulhajees.in.png",
     "demoUrl": "https://blogs.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["portfolio", "personal"],
-    "year": 2024
+    "year": 2024,
+    "tags": ["blog", "thoughts", "articles"]
   },
   {
     "title": "Custom 404 Page",
-    "description": "A creative 404 error page with engaging design and helpful navigation options.",
+    "description": "A creative 404 error page with engaging design and helpful navigation.",
     "image": "https://projects-gallery-screenshots.vercel.app/404.abdulhajees.in.png",
     "demoUrl": "https://404.abdulhajees.in",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["tools", "utility"],
-    "year": 2024
+    "year": 2024,
+    "tags": ["404", "error", "creative"]
   }
 ]

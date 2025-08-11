@@ -248,32 +248,52 @@ export default function ProjectsShowcase() {
                               target.style.setProperty('--my', y + 'px');
                             }}
                           >
-                            <div className="fx-overlay">
-                              <div className="fx-gradient" />
-                              <div className="fx-clouds">
-                                <span />
-                                <span />
-                                <span />
+                            {!isComingSoon(p) && !isMaintenance(p) ? (
+                              <div className="relative aspect-[16/10] overflow-hidden">
+                                <img
+                                  src={p.image}
+                                  alt={`${p.title} preview by Abdul Hajees`}
+                                  loading="lazy"
+                                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
                               </div>
-                            </div>
-                            <div className="relative aspect-[16/10] overflow-hidden">
-                              <img
-                                src={p.image}
-                                alt={`${p.title} preview by Abdul Hajees`}
-                                loading="lazy"
-                                className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
-                                  isComingSoon(p) ? 'blur-sm' : ''
-                                }`}
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
-                              {isComingSoon(p) && (
-                                <div className="absolute top-4 right-4">
-                                  <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-yellow-500 text-yellow-600">
-                                    🔒 Locked
-                                  </Badge>
+                            ) : (
+                              <>
+                                <div className="fx-overlay">
+                                  <div className="fx-gradient" />
+                                  <div className="fx-clouds">
+                                    <span />
+                                    <span />
+                                    <span />
+                                  </div>
                                 </div>
-                              )}
-                            </div>
+                                <div className="relative aspect-[16/10] overflow-hidden">
+                                  <img
+                                    src={p.image}
+                                    alt={`${p.title} preview by Abdul Hajees`}
+                                    loading="lazy"
+                                    className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                                      isComingSoon(p) ? 'blur-sm' : ''
+                                    }`}
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
+                                  {isComingSoon(p) && (
+                                    <div className="absolute top-4 right-4">
+                                      <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-yellow-500 text-yellow-600">
+                                        🔒 Locked
+                                      </Badge>
+                                    </div>
+                                  )}
+                                  {isMaintenance(p) && (
+                                    <div className="absolute top-4 right-4">
+                                      <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-orange-500 text-orange-600">
+                                        🔧 Maintenance
+                                      </Badge>
+                                    </div>
+                                  )}
+                                </div>
+                              </>
+                            )}
                             <div className="p-5 lift relative z-[1]">
                               <div className="flex items-start justify-between gap-2">
                                 <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
