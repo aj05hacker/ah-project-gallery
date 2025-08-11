@@ -213,7 +213,7 @@
     "title": "Landing page for EduTech Company",
     "description": "A landing page for an edtech platform offering programming tutorials.",
     "image": "https://projects-gallery-screenshots.vercel.app/edutech-landingpage.vercel.app.png",
-    "demoUrl": "edutech-landingpage.vercel.app",
+    "demoUrl": "https://edutech-landingpage.vercel.app",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["web-app", "prototype"],
