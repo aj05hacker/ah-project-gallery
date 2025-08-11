@@ -43,6 +43,16 @@
     "year": 2025,
     "tags": ["social", "networking", "web"]
   },
+    {
+    "title": "AH Trackr - Inventory Management System",
+    "description": "AI-Powered Inventory Management – A complete system for tracking stock, managing orders, and predicting demand with AI insights. Streamlines inventory control from warehouse to sales, all in one smart dashboard.",
+    "image": "https://projects-gallery-screenshots.vercel.app/ahtrackr.abdulhajees.in.png",
+    "demoUrl": "https://ahtrackr.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["tools", "utility", "ai", "business"],
+    "year": 2025
+  },
   {
     "title": "Drive",
     "description": "A Telegram Based cloud storage and file management solution with secure access and sharing capabilities.",
@@ -82,7 +92,7 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["education", "learning","ai"],
-    "year": 2024
+    "year": 2025
   },
   {
     "title": "AH Assistant AI",
@@ -92,6 +102,16 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["portfolio", "personal"],
+    "year": 2025
+  },
+    {
+    "title": "Abdul Hajees Portfolio",
+    "description": "The main professional website showcasing portfolio, services, and contact information.",
+    "image": "https://projects-gallery-screenshots.vercel.app/www.abdulhajees.in.png",
+    "demoUrl": "https://www.abdulhajees.in",
+    "githubUrl": "",
+    "isPublic": true,
+    "categories": ["tools", "utility"],
     "year": 2024
   },
   {
@@ -102,16 +122,6 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["ai", "chatbot", "tools"],
-    "year": 2024
-  },
-  {
-    "title": "AH Trackr - Inventory Management System",
-    "description": "AI-Powered Inventory Management – A complete system for tracking stock, managing orders, and predicting demand with AI insights. Streamlines inventory control from warehouse to sales, all in one smart dashboard.",
-    "image": "https://projects-gallery-screenshots.vercel.app/ahtrackr.abdulhajees.in.png",
-    "demoUrl": "https://ahtrackr.abdulhajees.in",
-    "githubUrl": "",
-    "isPublic": true,
-    "categories": ["tools", "utility", "ai", "business"],
     "year": 2024
   },
   {
@@ -135,7 +145,7 @@
     "year": 2024
   },
   {
-    "title": "Student ERP System ",
+    "title": "AskIT - Student ERP System ",
     "description": "A secure, AI-powered student management platform with tools for data handling, mark management, and performance tracking. Login required for access — peek at the polished login page, but the real magic stays behind the password.",
     "image": "https://projects-gallery-screenshots.vercel.app/erp3.abdulhajees.in.png",
     "demoUrl": "https://erp3.abdulhajees.in",
@@ -143,17 +153,7 @@
     "isPublic": true,
     "categories": ["business", "management", "tools"],
     "isprotected": true,
-    "year": 2024
-  },
-  {
-    "title": "Abdul Hajees Portfolio",
-    "description": "The main professional website showcasing portfolio, services, and contact information.",
-    "image": "https://projects-gallery-screenshots.vercel.app/www.abdulhajees.in.png",
-    "demoUrl": "https://www.abdulhajees.in",
-    "githubUrl": "",
-    "isPublic": true,
-    "categories": ["tools", "utility"],
-    "year": 2023
+    "year": 2025
   },
   {
     "title": "Askit AI",
@@ -163,7 +163,7 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["ai", "chatbot", "tools"],
-    "year": 2023
+    "year": 2025
   },
   {
     "title": "AskIT ERP System - Student Info Module",
@@ -173,7 +173,7 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["business", "management", "tools"],
-    "year": 2023
+    "year": 2025
   },
   {
     "title": "AskIT ERP System - Dashboard module",
@@ -183,7 +183,7 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["business", "management", "tools", "ai"],
-    "year": 2023
+    "year": 2025
   },
   {
     "title": "AHExpenses",
@@ -193,7 +193,7 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["tools", "utility"],
-    "year": 2023
+    "year": 2024
   },
   {
     "title": "Landing page for EduTech Company",
@@ -266,6 +266,6 @@
     "githubUrl": "",
     "isPublic": true,
     "categories": ["tools", "utility"],
-    "year": 2023
+    "year": 2024
   }
 ]
