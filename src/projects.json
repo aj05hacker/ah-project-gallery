@@ -198,8 +198,8 @@
   {
     "title": "Landing page for EduTech Company",
     "description": "An educational technology platform offering programming tutorials and coding resources.",
-    "image": "https://projects-gallery-screenshots.vercel.app/learntechzo-17fs.vercel.app.png",
-    "demoUrl": "https://edutech-landingpage.vercel.app",
+    "image": "https://projects-gallery-screenshots.vercel.app/edutech-landingpage.vercel.app.png",
+    "demoUrl": "edutech-landingpage.vercel.app",
     "githubUrl": "",
     "isPublic": true,
     "categories": ["web-app", "prototype"],
