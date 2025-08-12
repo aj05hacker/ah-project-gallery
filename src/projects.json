@@ -55,7 +55,7 @@
     "tags": ["inventory", "ai", "dashboard"]
   },
   {
-    "title": "Drive",
+    "title": "Tele Drive",
     "description": "Telegram-based cloud storage and file management with secure sharing.",
     "image": "https://projects-gallery-screenshots.vercel.app/drive.abdulhajees.in.png",
     "demoUrl": "https://drive.abdulhajees.in",

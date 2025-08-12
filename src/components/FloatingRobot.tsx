@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import './FloatingRobot.css';
-import ChatUI from './ChatUI';
-import ChatBubble from './ChatBubble';
+const ChatUI = React.lazy(() => import('./ChatUI'));
+const ChatBubble = React.lazy(() => import('./ChatBubble'));
 import './ChatBubble.css';
 
 interface FloatingRobotProps {
@@ -121,7 +121,9 @@ const FloatingRobot: React.FC<FloatingRobotProps> = ({ className }) => {
         tabIndex={0}
         aria-label="Open or close chat assistant"
       >
-        <ChatBubble isOpen={isChatOpen} />
+        <Suspense fallback={null}>
+          <ChatBubble isOpen={isChatOpen} />
+        </Suspense>
         <div className="relative">
           <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg transition-all duration-300">
             {hasError || !isLoaded ? (
@@ -173,13 +175,15 @@ const FloatingRobot: React.FC<FloatingRobotProps> = ({ className }) => {
           </div>
         </div>
       </div>
-      <ChatUI 
-        isOpen={isChatOpen} 
-        onClose={() => {
-          setIsChatOpen(false);
-          setCurrentState('happy');
-        }} 
-      />
+      <Suspense fallback={null}>
+        <ChatUI 
+          isOpen={isChatOpen} 
+          onClose={() => {
+            setIsChatOpen(false);
+            setCurrentState('happy');
+          }} 
+        />
+      </Suspense>
     </>
   );
 };
