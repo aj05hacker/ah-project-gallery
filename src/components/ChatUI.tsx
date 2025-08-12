@@ -201,7 +201,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ isOpen, onClose }) => {
             </p>
           </div>
         </div>
-        <button onClick={onClose} className="w-8 h-8 rounded-full hover:bg-accent flex items-center justify-center transition-colors">
+        <button onClick={onClose} aria-label="Close chat" className="w-8 h-8 rounded-full hover:bg-accent flex items-center justify-center transition-colors">
           <X className="w-4 h-4" />
         </button>
       </div>
@@ -280,6 +280,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ isOpen, onClose }) => {
           <button
             onClick={sendMessage}
             disabled={!inputValue.trim() || isTyping}
+            aria-label="Send message"
             className={cn('px-3 py-2 bg-gradient-to-br from-fuchsia-500 to-cyan-400 text-white rounded-lg',
               'hover:from-fuchsia-600 hover:to-cyan-500 transition-all',
               'disabled:opacity-50 disabled:cursor-not-allowed')}

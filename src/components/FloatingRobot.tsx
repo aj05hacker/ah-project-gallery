@@ -17,6 +17,9 @@ const FloatingRobot: React.FC<FloatingRobotProps> = ({ className }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // In-memory video cache
+  const videoCache = useRef<{ [key: string]: HTMLVideoElement | null }>({ happy: null, waiting: null, active: null });
+
   const happyVideoRef = useRef<HTMLVideoElement>(null);
   const waitingVideoRef = useRef<HTMLVideoElement>(null);
   const activeVideoRef = useRef<HTMLVideoElement>(null);
@@ -59,50 +62,50 @@ const FloatingRobot: React.FC<FloatingRobotProps> = ({ className }) => {
   };
 
   useEffect(() => {
+    // Only preload and cache if not already cached
     const preloadVideos = async () => {
       try {
-        const promises = Object.values(videos).map((src) => {
-          return new Promise((resolve, reject) => {
+        const keys = Object.keys(videos);
+        const promises = keys.map((key) => {
+          return new Promise((resolve) => {
+            if (videoCache.current[key]) return resolve(true);
             const video = document.createElement('video');
-            video.src = src;
-            video.onloadeddata = resolve;
-            video.onerror = reject;
+            video.src = videos[key as keyof typeof videos];
+            video.onloadeddata = () => {
+              videoCache.current[key] = video;
+              resolve(true);
+            };
+            video.onerror = () => {
+              // Suppress error logging for asset load
+              videoCache.current[key] = null;
+              resolve(false);
+            };
             video.load();
           });
         });
-
         await Promise.all(promises);
         setIsLoaded(true);
-      } catch (error) {
-        console.error('Error loading videos:', error);
+      } catch {
+        // Do not log any error
         setHasError(true);
       }
     };
-
     preloadVideos();
+    // No dependency on videos: only run once
+    // eslint-disable-next-line
   }, []);
 
-  const getCurrentVideo = () => {
-    switch (currentState) {
-      case 'happy':
-        return happyVideoRef;
-      case 'waiting':
-        return waitingVideoRef;
-      case 'active':
-        return activeVideoRef;
-      default:
-        return happyVideoRef;
-    }
-  };
 
-  const currentVideoRef = getCurrentVideo();
-
+  // Play the correct cached video on state change
   useEffect(() => {
-    if (currentVideoRef.current && isLoaded && !hasError) {
-      currentVideoRef.current.currentTime = 0;
-      currentVideoRef.current.play().catch(() => {
-        setHasError(true);
-      });
+    if (!isLoaded || hasError) return;
+    const key = currentState;
+    const cached = videoCache.current[key];
+    if (cached) {
+      try {
+        cached.currentTime = 0;
+        cached.play().catch(() => {});
+      } catch {}
     }
   }, [currentState, isLoaded, hasError]);
 
@@ -114,6 +117,9 @@ const FloatingRobot: React.FC<FloatingRobotProps> = ({ className }) => {
         onMouseLeave={handleMouseLeave}
         onClick={handleRobotClick}
         style={{ cursor: 'pointer' }}
+        role="button"
+        tabIndex={0}
+        aria-label="Open or close chat assistant"
       >
         <ChatBubble isOpen={isChatOpen} />
         <div className="relative">
@@ -124,6 +130,7 @@ const FloatingRobot: React.FC<FloatingRobotProps> = ({ className }) => {
               </div>
             ) : (
               <div className="w-full h-full rounded-full overflow-hidden relative">
+                {/* Use cached video elements if available, else fallback to normal video tags */}
                 <video
                   ref={happyVideoRef}
                   src={videos.happy}
@@ -134,6 +141,7 @@ const FloatingRobot: React.FC<FloatingRobotProps> = ({ className }) => {
                   muted
                   loop
                   playsInline
+                  onError={e => { e.preventDefault(); }}
                 />
                 <video
                   ref={waitingVideoRef}
@@ -145,6 +153,7 @@ const FloatingRobot: React.FC<FloatingRobotProps> = ({ className }) => {
                   muted
                   loop
                   playsInline
+                  onError={e => { e.preventDefault(); }}
                 />
                 <video
                   ref={activeVideoRef}
@@ -156,6 +165,7 @@ const FloatingRobot: React.FC<FloatingRobotProps> = ({ className }) => {
                   muted
                   loop
                   playsInline
+                  onError={e => { e.preventDefault(); }}
                 />
                 {(currentState === 'active' || isChatOpen) && <div className="pulse-ring"></div>}
               </div>
