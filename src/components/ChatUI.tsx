@@ -22,11 +22,11 @@ const ChatUI: React.FC<ChatUIProps> = ({ isOpen, onClose }) => {
   useEffect(() => {
     const load = async () => {
       try {
-        const r = await fetch('/knowledge.txt');
+    const r = await fetch('/knowledge.txt'); // Ensure only public/knowledge.txt is used
         if (!r.ok) throw new Error('HTTP ' + r.status);
         setKnowledgeBase(await r.text());
       } catch (e) {
-        setKnowledgeBase('Abdul Hajees – React/TypeScript full‑stack developer. Portfolio: abdulhajees.in');
+    setKnowledgeBase(''); // If not found, leave empty (no fallback)
       }
     };
     load();
@@ -102,7 +102,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ isOpen, onClose }) => {
     }
     try {
       setUsingFallback(false);
-  const prompt = `You are AH Assistant on Abdul Hajees' portfolio site. You were built by Abdul to help visitors learn about him. Never mention internal model names or providers (e.g. Gemini, OpenAI); just act as AH Assistant. Use ONLY the provided knowledge when relevant; if something is missing, be transparent and suggest contacting him.\n\nKNOWLEDGE (truncated):\n${knowledgeBase.slice(0,6000)}\n\nSTYLE & RULES:\n- Refer to Abdul in third person ("Abdul", "he").\n- Tone: concise, warm, professional, with a light friendly spark.\n- Up to 2 tasteful emojis max when they add clarity or warmth.\n- If unsure / missing data: state that and invite the user to email him (me@abdulhajees.in).\n- Avoid over-selling; answer directly first, then optionally one helpful suggestion.\n- Support basic markdown: paragraphs, bullet lists, numbered steps, inline code, fenced code.\n\nUSER QUESTION: ${userMessage}\n\nProvide the best helpful answer now:`;
+    const prompt = `You are AH Assistant on Abdul Hajees' portfolio site. You were built by Abdul to help visitors learn about him. Never mention internal model names or providers (e.g. Gemini, OpenAI); just act as AH Assistant. Use ONLY the provided knowledge below when relevant; if something is missing, be transparent and suggest contacting him.\n\nKNOWLEDGE BASE (verbatim, can use HTML/CSS if user asks):\n${knowledgeBase.slice(0, 12000)}\n\nSTYLE & RULES:\n- Refer to Abdul in third person ("Abdul", "he").\n- Tone: concise, warm, professional, with a light friendly spark.\n- Up to 2 tasteful emojis max when they add clarity or warmth.\n- If unsure / missing data: state that and invite the user to email him (me@abdulhajees.in).\n- Avoid over-selling; answer directly first, then optionally one helpful suggestion.\n- Support markdown, HTML, and CSS in your answers.\n- If the user asks for styled output, you may use <style> tags or inline styles.\n\nUSER QUESTION: ${userMessage}\n\nProvide the best helpful answer now:`;
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
       const res = await fetch(url, {
         method: 'POST',
@@ -151,45 +151,12 @@ const ChatUI: React.FC<ChatUIProps> = ({ isOpen, onClose }) => {
   };
 
   // Basic lightweight markdown renderer (supports code blocks, inline code, bold, italics, lists, links)
-  const renderMarkdown = (text: string) => {
-    const blocks: React.ReactNode[] = [];
-    const parts = text.split(/```/); // crude split for fenced code
-    parts.forEach((part, idx) => {
-      if (idx % 2 === 1) {
-        // code block
-        blocks.push(
-          <pre key={idx} className="bg-black/40 border border-border/40 rounded-md p-3 overflow-x-auto text-xs leading-relaxed">
-            <code>{part.trim()}</code>
-          </pre>
-        );
-      } else {
-        // normal markdown segment -> further split into lines and process
-        const lines = part.split(/\n+/).filter(l => l.trim().length > 0);
-        let listBuffer: string[] = [];
-        const flushList = (key: number) => {
-          if (listBuffer.length) {
-            blocks.push(
-              <ul key={`ul-${idx}-${key}`} className="list-disc ml-5 space-y-1">
-                {listBuffer.map((li, i) => <li key={i}>{renderInline(li)}</li>)}
-              </ul>
-            );
-            listBuffer = [];
-          }
-        };
-        lines.forEach((line, iLine) => {
-          const listMatch = line.match(/^[-*+]\s+(.*)/);
-          if (listMatch) {
-            listBuffer.push(listMatch[1]);
-          } else {
-            flushList(iLine);
-            blocks.push(<p key={`p-${idx}-${iLine}`} className="mb-2 last:mb-0">{renderInline(line)}</p>);
-          }
-        });
-        flushList(999);
-      }
-    });
-    return blocks;
-  };
+    // Render markdown, HTML, and CSS (dangerouslySetInnerHTML for bot)
+    const renderBotResponse = (text: string) => {
+      // If the response contains <html>, <body>, or <style> tags, render as-is
+      // Otherwise, wrap in a <div> for markdown/HTML
+      return <div className="whitespace-pre-wrap break-words prose prose-invert prose-p:my-2 prose-ul:my-2 prose-li:my-0 prose-pre:my-3 prose-code:text-[0.75rem] max-w-none" dangerouslySetInnerHTML={{ __html: text }} />;
+    };
 
   const renderInline = (segment: string): React.ReactNode => {
     // links
@@ -263,9 +230,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ isOpen, onClose }) => {
                 : 'bg-muted/50 border border-border/50')}
             >
               {msg.sender === 'bot' ? (
-                <div className="whitespace-pre-wrap break-words prose prose-invert prose-p:my-2 prose-ul:my-2 prose-li:my-0 prose-pre:my-3 prose-code:text-[0.75rem] max-w-none">
-                  {renderMarkdown(msg.text)}
-                </div>
+                renderBotResponse(msg.text)
               ) : (
                 <p className="whitespace-pre-wrap break-words">{msg.text}</p>
               )}
