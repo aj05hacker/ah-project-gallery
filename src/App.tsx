@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
+import FloatingRobot from "@/components/FloatingRobot";
 import Index from "./pages/Index";
 import HireMe from "./pages/HireMe";
 import NotFound from "./pages/NotFound";
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
+        <FloatingRobot />
       </TooltipProvider>
     </QueryClientProvider>
   </HelmetProvider>
