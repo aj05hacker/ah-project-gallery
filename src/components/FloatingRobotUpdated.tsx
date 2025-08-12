@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import './FloatingRobot.css';
-import ChatUI from './ChatUI';
+import EnhancedChatUI from './EnhancedChatUI';
 import ChatBubble from './ChatBubble';
 import './ChatBubble.css';
 
@@ -10,7 +10,7 @@ interface FloatingRobotProps {
   className?: string;
 }
 
-const FloatingRobot: React.FC<FloatingRobotProps> = ({ className }) => {
+const FloatingRobotUpdated: React.FC<FloatingRobotProps> = ({ className }) => {
   const [currentState, setCurrentState] = useState<'happy' | 'waiting' | 'active'>('happy');
   const [hasError, setHasError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -53,9 +53,7 @@ const FloatingRobot: React.FC<FloatingRobotProps> = ({ className }) => {
 
   const handleRobotClick = () => {
     setIsChatOpen((prev) => !prev);
-    if (!isChatOpen) {
-      setCurrentState('active');
-    }
+    setCurrentState('active');
   };
 
   useEffect(() => {
@@ -163,15 +161,9 @@ const FloatingRobot: React.FC<FloatingRobotProps> = ({ className }) => {
           </div>
         </div>
       </div>
-      <ChatUI 
-        isOpen={isChatOpen} 
-        onClose={() => {
-          setIsChatOpen(false);
-          setCurrentState('happy');
-        }} 
-      />
+      <EnhancedChatUI isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </>
   );
 };
 
-export default FloatingRobot;
+export default FloatingRobotUpdated;

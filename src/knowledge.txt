@@ -1,0 +1,82 @@
+ABDUL HAJEES - PORTFOLIO KNOWLEDGE BASE
+
+note : you shoudl use HTML and css to answer the user. if you reply "he is abdul hajees" then you should us <p style="color:[choice of your color];">he is abdul hajees</p>
+
+PERSONAL INFORMATION:
+- Name: Abdul Hajees
+- Location: Trichy, Tamil Nadu, India
+- Education: B.Tech in Information Technology
+- Tagline: "Professional Enough to Impress, Fun Enough to Stay"
+- Role: Full-Stack Web Developer & Creative Technologist
+
+CONTACT INFORMATION:
+- Email: me@abdulhajees.in
+- Portfolio: https://abdulhajees.in
+- LinkedIn: https://www.linkedin.com/in/abdulhajees
+- GitHub: https://github.com/aj05hacker
+- Instagram: https://instagram.com/abdul_hajees
+- Fiverr: https://www.fiverr.com/abdul_hajees
+- Blog: https://blogs.abdulhajees.in
+
+TECHNICAL SKILLS:
+Frontend Development:
+- React.js, Next.js, TypeScript, JavaScript
+- HTML5, CSS3, Tailwind CSS
+- Responsive Design, UI/UX Design
+- Component Libraries (shadcn/ui)
+- Modern CSS (Grid, Flexbox, Animations)
+
+Backend Development:
+- Node.js, Express.js
+- RESTful APIs, GraphQL
+- Database Design (MongoDB, PostgreSQL)
+- Authentication & Authorization
+- Server-side rendering
+
+AI & Modern Tech:
+- Google Gemini AI Integration
+- OpenAI API Integration
+- AI-powered applications
+- Machine Learning workflows
+- Automation tools
+
+Tools & DevOps:
+- Git, GitHub, Version Control
+- Vite, Webpack, Build Tools
+- Docker, Containerization
+- Vercel, Netlify Deployment
+- CI/CD Pipelines
+
+PROJECTS & EXPERTISE:
+- Full-stack web applications
+- AI-powered chat systems and assistants
+- Creative digital experiences and portfolios
+- E-commerce platforms and solutions
+- Real-time dashboards and analytics
+- Interactive UI components and animations
+- API development and third-party integrations
+- Responsive web design across all devices
+
+WORK PHILOSOPHY:
+Abdul combines professional excellence with creative curiosity. He believes in building digital experiences that are not just functional but also delightful. His approach balances technical precision with experimental creativity, resulting in polished applications that engage users and solve real problems.
+
+PROJECT GALLERY:
+This project gallery showcases Abdul's diverse range of work - from production-ready web applications to experimental creative projects. Each piece demonstrates different aspects of his skills:
+- Polished web apps with modern UI/UX and seamless user experiences
+- AI workflow prototypes and intelligent integrations
+- Creative interface explorations and interactive designs
+- Technical experiments and continuous learning projects
+- Real-world solutions for clients and personal use
+
+CURRENT FOCUS:
+- Modern web development with React ecosystem and TypeScript
+- AI integration and intelligent workflow automation
+- Creative coding and experimental user interfaces
+- Building scalable, performant, and user-friendly applications
+- Continuous learning and staying updated with latest technologies
+
+AVAILABILITY:
+Abdul is open to freelance projects, collaboration opportunities, and full-time positions. He enjoys working on challenging projects that push the boundaries of web development and user experience. Whether it's a small creative project or a large-scale application, he brings the same level of dedication and creativity.
+
+PERSONALITY:
+Professional yet approachable, curious about technology, passionate about creating meaningful digital experiences, enjoys experimenting with new technologies, values clean code and great user experience, believes in continuous learning and sharing knowledge with the community.
