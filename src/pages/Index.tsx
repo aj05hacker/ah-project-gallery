@@ -233,6 +233,11 @@ const Index = () => {
           © {new Date().getFullYear()} Abdul Hajees. Curated with React,
           Tailwind, and creative curiosity.
         </p>
+        <div className="mt-6">
+          <a href="/archive" rel="nofollow">
+            <Button variant="outline" className="hover-scale">View Archive</Button>
+          </a>
+        </div>
       </footer>
     </main>
   );

@@ -8,6 +8,7 @@ import FloatingRobot from "@/components/FloatingRobot";
 import Index from "./pages/Index";
 import HireMe from "./pages/HireMe";
 import NotFound from "./pages/NotFound";
+import Archive from "./pages/Archive";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -21,6 +22,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/hireme" element={<HireMe />} />
+            <Route path="/archive" element={<Archive />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

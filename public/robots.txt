@@ -12,5 +12,6 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /archive
 
 Sitemap: https://gallery.abdulhajees.in/sitemap.xml

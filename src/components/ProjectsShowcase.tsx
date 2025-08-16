@@ -49,7 +49,7 @@ const CATEGORY_REMAP: Record<string,string> = {
 };
 
 // Special categories that should not appear in filters
-const SPECIAL_CATEGORIES = new Set(['coming soon', 'coming-soon', 'maintenance', 'under-maintenance']);
+const SPECIAL_CATEGORIES = new Set(['coming soon', 'coming-soon', 'maintenance', 'under-maintenance', 'archive', 'archived']);
 
 // Helper function to check if a project is "coming soon"
 const isComingSoon = (project: Project): boolean => {
@@ -111,6 +111,8 @@ export default function ProjectsShowcase() {
   return RAW_PROJECTS.filter(p => {
       const catsRaw = (p.categories && p.categories.length ? p.categories : [p.category]).filter(Boolean) as string[];
       const catsLower = catsRaw.map(c => c.toLowerCase());
+      // Hide archived projects from main listing
+      if (catsLower.includes('archive') || catsLower.includes('archived')) return false;
       if (!isAll && !catsLower.includes(selected)) return false;
       if (!q) return true;
       const text = (p.title + ' ' + p.description + ' ' + (p.tags || []).join(' ') + ' ' + catsRaw.join(' ')).toLowerCase();
