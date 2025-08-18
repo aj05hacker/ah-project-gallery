@@ -102,7 +102,51 @@ export default function ProjectsShowcase() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("all");
   const [visibleCount, setVisibleCount] = useState(10);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  // Preload project images (skip archived) and show a skeleton until loaded or timeout
+  useEffect(() => {
+    let mounted = true;
+    const urls = Array.from(new Set(
+      RAW_PROJECTS
+        .filter(p => {
+          const catsRaw = (p.categories && p.categories.length ? p.categories : [p.category]).filter(Boolean) as string[];
+          const catsLower = catsRaw.map(c => c.toLowerCase());
+          if (catsLower.includes('archive') || catsLower.includes('archived')) return false;
+          return true;
+        })
+        .slice(0, 12) // limit preload to first N images to avoid heavy startup
+        .map(p => p.image)
+        .filter(Boolean)
+    ));
+
+    if (urls.length === 0) {
+      // nothing to preload, dismiss skeleton fast
+      const t = setTimeout(() => mounted && setIsLoading(false), 200);
+      return () => { mounted = false; clearTimeout(t); };
+    }
+
+    let loaded = 0;
+    const total = urls.length;
+    const timeout = setTimeout(() => {
+      if (mounted) setIsLoading(false);
+    }, 2500);
+
+    urls.forEach(src => {
+      const img = new Image();
+      img.src = src as string;
+      img.onload = img.onerror = () => {
+        loaded += 1;
+        if (mounted && loaded >= total) {
+          clearTimeout(timeout);
+          setIsLoading(false);
+        }
+      };
+    });
+
+    return () => { mounted = false; clearTimeout(timeout); };
+  }, []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -207,247 +251,262 @@ export default function ProjectsShowcase() {
 
         {isAllCategory ? (
           <div>
-            {timelineGroups.map((group) => (
-              <div key={group.year} className="relative w-full mb-16">
-                {/* Responsive: show year as heading above cards on small screens, timeline on md+ */}
-                <div className="block md:hidden mb-6">
-                  <h3 className="text-3xl font-extrabold text-primary text-center select-none" aria-label={`Year ${group.year}`}>{group.year}</h3>
-                </div>
-                <div className="hidden md:flex w-full">
-                  <div className="flex flex-col items-center mr-8" style={{ minWidth: 72 }}>
-                    <span
-                      className="text-5xl font-extrabold text-primary select-none mb-2"
-                      style={{ lineHeight: 1.1 }}
-                      aria-label={`Year ${group.year}`}
-                    >
-                      {group.year}
-                    </span>
-                    <div className="flex-1 w-1 bg-primary/30 rounded-full" style={{ minHeight: '100%' }} />
+            {isLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} className="animate-pulse">
+                    <div className="h-48 bg-surface/40 rounded-md mb-3" />
+                    <div className="h-4 bg-surface/30 rounded w-3/4 mb-2" />
+                    <div className="h-3 bg-surface/30 rounded w-1/2" />
                   </div>
-                  <div className="flex-1">
-                    <motion.ul
-                      variants={container}
-                      initial="hidden"
-                      animate="show"
-                      className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
-                    >
-                      {group.projects.map((p) => (
-                        <motion.li
-                          key={p.title}
-                          variants={item}
-                          initial="hidden"
-                          whileInView="show"
-                          viewport={{ once: true, amount: 0.2 }}
-                        >
-                          <Card
-                            className="interactive-card interactive-card-transition overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm hover:shadow-xl"
-                            onPointerMove={(e) => {
-                              const target = e.currentTarget as HTMLElement;
-                              const rect = target.getBoundingClientRect();
-                              const x = e.clientX - rect.left;
-                              const y = e.clientY - rect.top;
-                              target.style.setProperty('--mx', x + 'px');
-                              target.style.setProperty('--my', y + 'px');
-                            }}
+                ))}
+              </div>
+            ) : (
+              <>
+                {timelineGroups.length === 0 ? (
+                  <div className="col-span-full text-sm text-muted-foreground p-8 border border-dashed rounded-md text-center">
+                    {RAW_PROJECTS.length === 0 ? 'No project data found (JSON failed to load).' : 'No projects match your search or filter.'}
+                  </div>
+                ) : (
+                  timelineGroups.map((group) => (
+                    <div key={group.year} className="relative w-full mb-16">
+                      {/* Responsive: show year as heading above cards on small screens, timeline on md+ */}
+                      <div className="block md:hidden mb-6">
+                        <h3 className="text-3xl font-extrabold text-primary text-center select-none" aria-label={`Year ${group.year}`}>{group.year}</h3>
+                      </div>
+                      <div className="hidden md:flex w-full">
+                        <div className="flex flex-col items-center mr-8" style={{ minWidth: 72 }}>
+                          <span
+                            className="text-5xl font-extrabold text-primary select-none mb-2"
+                            style={{ lineHeight: 1.1 }}
+                            aria-label={`Year ${group.year}`}
                           >
-                            <div className="fx-overlay">
-                              <div className="fx-gradient" />
-                              <div className="fx-clouds">
-                                <span />
-                                <span />
-                                <span />
-                              </div>
-                            </div>
-                            <div className="relative aspect-[16/10] overflow-hidden">
-                              <img
-                                src={p.image}
-                                alt={`${p.title} preview by Abdul Hajees`}
-                                loading="lazy"
-                                className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
-                                  isComingSoon(p) ? 'blur-sm' : ''
-                                }`}
-                              />
-                              {!isComingSoon(p) && !isMaintenance(p) && (
-                                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
-                              )}
-                              {isComingSoon(p) && (
-                                <div className="absolute top-4 right-4">
-                                  <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-yellow-500 text-yellow-600">
-                                    🔒 Locked
-                                  </Badge>
-                                </div>
-                              )}
-                              {isMaintenance(p) && (
-                                <div className="absolute top-4 right-4">
-                                  <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-orange-500 text-orange-600">
-                                    🔧 Maintenance
-                                  </Badge>
-                                </div>
-                              )}
-                            </div>
-                            <div className="p-5 lift relative z-[1]">
-                              <div className="flex items-start justify-between gap-2">
-                                <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
-                              </div>
-                              <p className="text-sm text-muted-foreground line-clamp-3">{p.description}</p>
-                              {p.tags && (
-                                <div className="mt-3 flex flex-wrap gap-2">
-                                  {p.tags.map((t: string) => (
-                                    <Badge key={t} variant="secondary">{t}</Badge>
-                                  ))}
-                                </div>
-                              )}
-                              <div className="mt-4 flex gap-2">
-                                {isComingSoon(p) ? (
-                                  <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
-                                    When it's awesome
-                                  </Button>
-                                ) : isMaintenance(p) ? (
-                                  <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
-                                    Under Maintenance
-                                  </Button>
-                                ) : (
-                                  p.demoUrl && (
-                                    <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
-                                      <Button variant="secondary" className="hover-scale">View Project</Button>
-                                    </a>
-                                  )
-                                )}
-                                {p.githubUrl ? (
-                                  <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
-                                    <Button variant="outline" className="hover-scale">
-                                      <Github className="w-4 h-4 mr-2" />
-                                      View Code
-                                    </Button>
-                                  </a>
-                                ) : !p.isPublic ? (
-                                  <Button variant="outline" className="hover-scale" disabled>
-                                    <Github className="w-4 h-4 mr-2" />
-                                    Private
-                                  </Button>
-                                ) : null}
-                              </div>
-                            </div>
-                          </Card>
-                        </motion.li>
-                      ))}
-                    </motion.ul>
-                  </div>
-                </div>
-                {/* On small screens, show cards below the year heading */}
-                <div className="md:hidden">
-                  <motion.ul
-                    variants={container}
-                    initial="hidden"
-                    animate="show"
-                    className="grid grid-cols-1 gap-6"
-                  >
-                    {group.projects.map((p) => (
-                      <motion.li
-                        key={p.title}
-                        variants={item}
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ once: true, amount: 0.2 }}
-                      >
-                        <Card
-                          className="interactive-card interactive-card-transition overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm hover:shadow-xl"
-                          onPointerMove={(e) => {
-                            const target = e.currentTarget as HTMLElement;
-                            const rect = target.getBoundingClientRect();
-                            const x = e.clientX - rect.left;
-                            const y = e.clientY - rect.top;
-                            target.style.setProperty('--mx', x + 'px');
-                            target.style.setProperty('--my', y + 'px');
-                          }}
+                            {group.year}
+                          </span>
+                          <div className="flex-1 w-1 bg-primary/30 rounded-full" style={{ minHeight: '100%' }} />
+                        </div>
+                        <div className="flex-1">
+                          <motion.ul
+                            variants={container}
+                            initial="hidden"
+                            animate="show"
+                            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
+                          >
+                            {group.projects.map((p) => (
+                              <motion.li
+                                key={p.title}
+                                variants={item}
+                                initial="hidden"
+                                whileInView="show"
+                                viewport={{ once: true, amount: 0.2 }}
+                              >
+                                <Card
+                                  className="interactive-card interactive-card-transition overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm hover:shadow-xl"
+                                  onPointerMove={(e) => {
+                                    const target = e.currentTarget as HTMLElement;
+                                    const rect = target.getBoundingClientRect();
+                                    const x = e.clientX - rect.left;
+                                    const y = e.clientY - rect.top;
+                                    target.style.setProperty('--mx', x + 'px');
+                                    target.style.setProperty('--my', y + 'px');
+                                  }}
+                                >
+                                  <div className="fx-overlay">
+                                    <div className="fx-gradient" />
+                                    <div className="fx-clouds">
+                                      <span />
+                                      <span />
+                                      <span />
+                                    </div>
+                                  </div>
+                                  <div className="relative aspect-[16/10] overflow-hidden">
+                                    <img
+                                      src={p.image}
+                                      alt={`${p.title} preview by Abdul Hajees`}
+                                      loading="lazy"
+                                      className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                                        isComingSoon(p) ? 'blur-sm' : ''
+                                      }`}
+                                    />
+                                    {!isComingSoon(p) && !isMaintenance(p) && (
+                                      <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
+                                    )}
+                                    {isComingSoon(p) && (
+                                      <div className="absolute top-4 right-4">
+                                        <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-yellow-500 text-yellow-600">
+                                          🔒 Locked
+                                        </Badge>
+                                      </div>
+                                    )}
+                                    {isMaintenance(p) && (
+                                      <div className="absolute top-4 right-4">
+                                        <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-orange-500 text-orange-600">
+                                          🔧 Maintenance
+                                        </Badge>
+                                      </div>
+                                    )}
+                                  </div>
+                                  <div className="p-5 lift relative z-[1]">
+                                    <div className="flex items-start justify-between gap-2">
+                                      <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
+                                    </div>
+                                    <p className="text-sm text-muted-foreground line-clamp-3">{p.description}</p>
+                                    {p.tags && (
+                                      <div className="mt-3 flex flex-wrap gap-2">
+                                        {p.tags.map((t: string) => (
+                                          <Badge key={t} variant="secondary">{t}</Badge>
+                                        ))}
+                                      </div>
+                                    )}
+                                    <div className="mt-4 flex gap-2">
+                                      {isComingSoon(p) ? (
+                                        <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
+                                          When it's awesome
+                                        </Button>
+                                      ) : isMaintenance(p) ? (
+                                        <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
+                                          Under Maintenance
+                                        </Button>
+                                      ) : (
+                                        p.demoUrl && (
+                                          <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+                                            <Button variant="secondary" className="hover-scale">View Project</Button>
+                                          </a>
+                                        )
+                                      )}
+                                      {p.githubUrl ? (
+                                        <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+                                          <Button variant="outline" className="hover-scale">
+                                            <Github className="w-4 h-4 mr-2" />
+                                            View Code
+                                          </Button>
+                                        </a>
+                                      ) : !p.isPublic ? (
+                                        <Button variant="outline" className="hover-scale" disabled>
+                                          <Github className="w-4 h-4 mr-2" />
+                                          Private
+                                        </Button>
+                                      ) : null}
+                                    </div>
+                                  </div>
+                                </Card>
+                              </motion.li>
+                            ))}
+                          </motion.ul>
+                        </div>
+                      </div>
+                      {/* On small screens, show cards below the year heading */}
+                      <div className="md:hidden">
+                        <motion.ul
+                          variants={container}
+                          initial="hidden"
+                          animate="show"
+                          className="grid grid-cols-1 gap-6"
                         >
-                          <div className="fx-overlay">
-                            <div className="fx-gradient" />
-                            <div className="fx-clouds">
-                              <span />
-                              <span />
-                              <span />
-                            </div>
-                          </div>
-                          <div className="relative aspect-[16/10] overflow-hidden">
-                            <img
-                              src={p.image}
-                              alt={`${p.title} preview by Abdul Hajees`}
-                              loading="lazy"
-                              className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
-                                isComingSoon(p) ? 'blur-sm' : ''
-                              }`}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
-                            {isComingSoon(p) && (
-                              <div className="absolute top-4 right-4">
-                                <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-yellow-500 text-yellow-600">
-                                  🔒 Locked
-                                </Badge>
-                              </div>
-                            )}
-                            {isMaintenance(p) && (
-                              <div className="absolute top-4 right-4">
-                                <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-orange-500 text-orange-600">
-                                  🔧 Maintenance
-                                </Badge>
-                              </div>
-                            )}
-                          </div>
-                          <div className="p-5 lift relative z-[1]">
-                            <div className="flex items-start justify-between gap-2">
-                              <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
-                            </div>
-                            <p className="text-sm text-muted-foreground line-clamp-3">{p.description}</p>
-                            {p.tags && (
-                              <div className="mt-3 flex flex-wrap gap-2">
-                                {p.tags.map((t: string) => (
-                                  <Badge key={t} variant="secondary">{t}</Badge>
-                                ))}
-                              </div>
-                            )}
-                            <div className="mt-4 flex gap-2">
-                              {isComingSoon(p) ? (
-                                <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
-                                  When it's awesome
-                                </Button>
-                              ) : isMaintenance(p) ? (
-                                <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
-                                  Under Maintenance
-                                </Button>
-                              ) : (
-                                p.demoUrl && (
-                                  <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
-                                    <Button variant="secondary" className="hover-scale">View Project</Button>
-                                  </a>
-                                )
-                              )}
-                              {p.githubUrl ? (
-                                <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
-                                  <Button variant="outline" className="hover-scale">
-                                    <Github className="w-4 h-4 mr-2" />
-                                    View Code
-                                  </Button>
-                                </a>
-                              ) : !p.isPublic ? (
-                                <Button variant="outline" className="hover-scale" disabled>
-                                  <Github className="w-4 h-4 mr-2" />
-                                  Private
-                                </Button>
-                              ) : null}
-                            </div>
-                          </div>
-                        </Card>
-                      </motion.li>
-                    ))}
-                  </motion.ul>
-                </div>
-              </div>
-            ))}
-            {filtered.length === 0 && (
-              <div className="col-span-full text-sm text-muted-foreground p-8 border border-dashed rounded-md text-center">
-                {RAW_PROJECTS.length === 0 ? 'No project data found (JSON failed to load).' : 'No projects match your search or filter.'}
-              </div>
+                          {group.projects.map((p) => (
+                            <motion.li
+                              key={p.title}
+                              variants={item}
+                              initial="hidden"
+                              whileInView="show"
+                              viewport={{ once: true, amount: 0.2 }}
+                            >
+                              <Card
+                                className="interactive-card interactive-card-transition overflow-hidden border-border/60 bg-card/50 backdrop-blur-sm hover:shadow-xl"
+                                onPointerMove={(e) => {
+                                  const target = e.currentTarget as HTMLElement;
+                                  const rect = target.getBoundingClientRect();
+                                  const x = e.clientX - rect.left;
+                                  const y = e.clientY - rect.top;
+                                  target.style.setProperty('--mx', x + 'px');
+                                  target.style.setProperty('--my', y + 'px');
+                                }}
+                              >
+                                <div className="fx-overlay">
+                                  <div className="fx-gradient" />
+                                  <div className="fx-clouds">
+                                    <span />
+                                    <span />
+                                    <span />
+                                  </div>
+                                </div>
+                                <div className="relative aspect-[16/10] overflow-hidden">
+                                  <img
+                                    src={p.image}
+                                    alt={`${p.title} preview by Abdul Hajees`}
+                                    loading="lazy"
+                                    className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                                      isComingSoon(p) ? 'blur-sm' : ''
+                                    }`}
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/20 to-transparent" />
+                                  {isComingSoon(p) && (
+                                    <div className="absolute top-4 right-4">
+                                      <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-yellow-500 text-yellow-600">
+                                        🔒 Locked
+                                      </Badge>
+                                    </div>
+                                  )}
+                                  {isMaintenance(p) && (
+                                    <div className="absolute top-4 right-4">
+                                      <Badge variant="outline" className="bg-background/80 backdrop-blur-sm border-orange-500 text-orange-600">
+                                        🔧 Maintenance
+                                      </Badge>
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="p-5 lift relative z-[1]">
+                                  <div className="flex items-start justify-between gap-2">
+                                    <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
+                                  </div>
+                                  <p className="text-sm text-muted-foreground line-clamp-3">{p.description}</p>
+                                  {p.tags && (
+                                    <div className="mt-3 flex flex-wrap gap-2">
+                                      {p.tags.map((t: string) => (
+                                        <Badge key={t} variant="secondary">{t}</Badge>
+                                      ))}
+                                    </div>
+                                  )}
+                                  <div className="mt-4 flex gap-2">
+                                    {isComingSoon(p) ? (
+                                      <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
+                                        When it's awesome
+                                      </Button>
+                                    ) : isMaintenance(p) ? (
+                                      <Button variant="secondary" className="opacity-60 cursor-not-allowed" disabled>
+                                        Under Maintenance
+                                      </Button>
+                                    ) : (
+                                      p.demoUrl && (
+                                        <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+                                          <Button variant="secondary" className="hover-scale">View Project</Button>
+                                        </a>
+                                      )
+                                    )}
+                                    {p.githubUrl ? (
+                                      <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+                                        <Button variant="outline" className="hover-scale">
+                                          <Github className="w-4 h-4 mr-2" />
+                                          View Code
+                                        </Button>
+                                      </a>
+                                    ) : !p.isPublic ? (
+                                      <Button variant="outline" className="hover-scale" disabled>
+                                        <Github className="w-4 h-4 mr-2" />
+                                        Private
+                                      </Button>
+                                    ) : null}
+                                  </div>
+                                </div>
+                              </Card>
+                            </motion.li>
+                          ))}
+                        </motion.ul>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </>
             )}
           </div>
         ) : (
@@ -458,8 +517,18 @@ export default function ProjectsShowcase() {
             animate="show"
             className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
           >
-            {displayedProjects.map((p) => (
-              <motion.li
+            {isLoading ? (
+              Array.from({ length: Math.min(9, displayedProjects.length || 9) }).map((_, i) => (
+                <li key={i} className="animate-pulse">
+                  <div className="h-44 bg-surface/40 rounded-md mb-3" />
+                  <div className="h-4 bg-surface/30 rounded w-3/4 mb-2" />
+                  <div className="h-3 bg-surface/30 rounded w-1/2" />
+                </li>
+              ))
+            ) : (
+              <>
+                {displayedProjects.map((p) => (
+                  <motion.li
                 key={p.title}
                 variants={item}
                 initial="hidden"
@@ -554,8 +623,10 @@ export default function ProjectsShowcase() {
                     </div>
                   </div>
                 </Card>
-              </motion.li>
-            ))}
+                  </motion.li>
+                ))}
+              </>
+            )}
             {filtered.length === 0 && (
               <div className="col-span-full text-sm text-muted-foreground p-8 border border-dashed rounded-md text-center">
                 {RAW_PROJECTS.length === 0 ? 'No project data found (JSON failed to load).' : 'No projects match your search or filter.'}
